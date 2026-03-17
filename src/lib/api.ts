@@ -1,0 +1,128 @@
+import { supabase } from './supabase';
+import type { StoreSettings, Product, Category } from './types';
+
+export async function getBestSellers(limit = 4): Promise<Product[]> {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*, product_images (*)')
+    .eq('status', 'published')
+    .eq('is_bestseller', true)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return data as Product[];
+}
+
+// Generic fetcher
+export async function getStoreSettings(): Promise<StoreSettings> {
+  const { data, error } = await supabase
+    .from('store_settings')
+    .select('*')
+    .eq('id', '5d8d96f5-5981-48ed-bebd-0b2ad04bf1f0')
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function getProducts(categoryId?: string, searchQuery?: string, page = 1, pageSize = 12): Promise<{ products: Product[], count: number }> {
+  let query = supabase
+    .from('products')
+    .select(`
+      *,
+      product_images (*),
+      product_categories (
+        categories (*)
+      )
+    `, { count: 'exact' })
+    .eq('status', 'published');
+
+  if (categoryId) {
+    query = query.eq('product_categories.category_id', categoryId);
+  }
+
+  if (searchQuery) {
+    query = query.or(`name.ilike.%${searchQuery}%,short_description.ilike.%${searchQuery}%`);
+  }
+
+  // Add pagination
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
+  query = query.range(from, to).order('created_at', { ascending: false });
+
+  const { data, error, count } = await query;
+  if (error) throw error;
+  return { 
+    products: data as Product[], 
+    count: count || 0 
+  };
+}
+
+export async function getProduct(idOrSlug: string): Promise<Product> {
+  // First try slug, fallback to ID if it's a UUID format
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
+  
+  let query = supabase
+    .from('products')
+    .select(`
+      *,
+      product_images (*),
+      product_variants (*),
+      product_categories (
+        categories (*)
+      )
+    `);
+
+  if (isUuid) {
+    query = query.eq('id', idOrSlug);
+  } else {
+    query = query.eq('slug', idOrSlug);
+  }
+
+  const { data, error } = await query.single();
+  if (error) throw error;
+  return data as Product;
+}
+
+export async function getCategories(): Promise<Category[]> {
+  const { data, error } = await supabase
+    .from('categories')
+    .select('*')
+    .order('display_order', { ascending: true });
+
+  if (error) throw error;
+  return data;
+}
+
+export async function getRelatedProducts(productId: string, limit = 4): Promise<Product[]> {
+  // Find the product's categories first
+  const { data: catLinks } = await supabase
+    .from('product_categories')
+    .select('category_id')
+    .eq('product_id', productId);
+
+  if (!catLinks || catLinks.length === 0) {
+    // No categories — just return latest products excluding current
+    const { data, error } = await supabase
+      .from('products')
+      .select('*, product_images (*)')
+      .eq('status', 'published')
+      .neq('id', productId)
+      .limit(limit);
+    if (error) throw error;
+    return data as Product[];
+  }
+
+  const categoryIds = catLinks.map(c => c.category_id);
+
+  const { data, error } = await supabase
+    .from('products')
+    .select('*, product_images (*), product_categories!inner (category_id)')
+    .eq('status', 'published')
+    .neq('id', productId)
+    .in('product_categories.category_id', categoryIds)
+    .limit(limit);
+
+  if (error) throw error;
+  return data as Product[];
+}
