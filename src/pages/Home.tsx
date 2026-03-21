@@ -403,7 +403,13 @@ export default function Home() {
               <button
                 onClick={() => {
                   setCurrentPage(prev => Math.max(1, prev - 1));
-                  window.scrollTo({ top: document.getElementById('categories')?.offsetTop || 500, behavior: 'smooth' });
+                  const catEl = document.getElementById('categories');
+                  if (catEl) {
+                    const top = catEl.getBoundingClientRect().top + window.scrollY - 100;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                  } else {
+                    window.scrollTo({ top: 500, behavior: 'smooth' });
+                  }
                 }}
                 disabled={currentPage === 1}
                 className="p-2 rounded-lg border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
@@ -426,7 +432,13 @@ export default function Home() {
                         key={pageNumber}
                         onClick={() => {
                           setCurrentPage(pageNumber);
-                          window.scrollTo({ top: document.getElementById('categories')?.offsetTop || 500, behavior: 'smooth' });
+                          const catEl = document.getElementById('categories');
+                          if (catEl) {
+                            const top = catEl.getBoundingClientRect().top + window.scrollY - 100;
+                            window.scrollTo({ top, behavior: 'smooth' });
+                          } else {
+                            window.scrollTo({ top: 500, behavior: 'smooth' });
+                          }
                         }}
                         className={`min-w-[40px] h-10 px-3 rounded-lg text-sm font-bold transition-all ${
                           currentPage === pageNumber
@@ -453,8 +465,14 @@ export default function Home() {
 
               <button
                 onClick={() => {
-                  setCurrentPage(prev => Math.min(totalPages, prev + 1));
-                  window.scrollTo({ top: document.getElementById('categories')?.offsetTop || 500, behavior: 'smooth' });
+                  setCurrentPage(prev => Math.min(totalPages, prev - -1)); // avoid string concat
+                  const catEl = document.getElementById('categories');
+                  if (catEl) {
+                    const top = catEl.getBoundingClientRect().top + window.scrollY - 100;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                  } else {
+                    window.scrollTo({ top: 500, behavior: 'smooth' });
+                  }
                 }}
                 disabled={currentPage === totalPages}
                 className="p-2 rounded-lg border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
