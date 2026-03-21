@@ -11,8 +11,8 @@ const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY;
 const SITE_URL = 'https://www.hiyawear.com';
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase environment variables');
-  process.exit(1);
+  console.warn('Missing Supabase environment variables — skipping sitemap generation (using existing sitemap.xml)');
+  process.exit(0);
 }
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
