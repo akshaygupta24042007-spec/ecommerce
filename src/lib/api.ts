@@ -1,5 +1,26 @@
 import { supabase } from './supabase';
-import type { StoreSettings, Product, Category } from './types';
+import type { StoreSettings, Product, Category, Blog } from './types';
+
+export async function getBlogs(): Promise<Blog[]> {
+  const { data, error } = await supabase
+    .from('blogs')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data as Blog[];
+}
+
+export async function getBlog(slug: string): Promise<Blog> {
+  const { data, error } = await supabase
+    .from('blogs')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (error) throw error;
+  return data as Blog;
+}
 
 export async function getBestSellers(limit = 4): Promise<Product[]> {
   const { data, error } = await supabase

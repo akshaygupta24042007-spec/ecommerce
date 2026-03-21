@@ -38,6 +38,18 @@ export interface ProductVariant {
   name: string;
 }
 
+export interface Blog {
+  id: string;
+  title: string;
+  slug: string;
+  content: string | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  image: string | null;
+  alt_text: string | null;
+  created_at: string;
+}
+
 export interface Product {
   id: string;
   name: string;
