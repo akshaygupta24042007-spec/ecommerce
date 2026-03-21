@@ -26,12 +26,13 @@ export async function getStoreSettings(): Promise<StoreSettings> {
 }
 
 export async function getProducts(categoryId?: string, searchQuery?: string, page = 1, pageSize = 12): Promise<{ products: Product[], count: number }> {
+  const categoryInner = categoryId ? '!inner' : '';
   let query = supabase
     .from('products')
     .select(`
       *,
       product_images (*),
-      product_categories (
+      product_categories${categoryInner} (
         categories (*)
       )
     `, { count: 'exact' })
