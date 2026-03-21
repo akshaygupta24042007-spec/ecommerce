@@ -4,7 +4,8 @@ import { createWhatsAppLink } from '../utils/orderLinks';
 import { MessageCircle, Instagram } from 'lucide-react';
 
 export function ProductCard({ product, settings }: { product: Product, settings?: StoreSettings }) {
-  const primaryImage = product.product_images?.find(img => img.is_primary)?.url 
+  const primaryImage = product.images?.[0]
+    || product.product_images?.find(img => img.is_primary)?.url 
     || product.product_images?.[0]?.url 
     || 'https://via.placeholder.com/300?text=No+Image';
 
@@ -18,8 +19,9 @@ export function ProductCard({ product, settings }: { product: Product, settings?
           <img 
             src={primaryImage} 
             alt={product.name}
-            className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ${!product.is_available ? 'opacity-60 grayscale' : ''}`}
             loading="lazy"
+            decoding="async"
+            className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 bg-gray-50 ${!product.is_available ? 'opacity-60 grayscale' : ''}`}
             width={400}
             height={400}
           />

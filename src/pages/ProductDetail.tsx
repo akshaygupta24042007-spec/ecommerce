@@ -58,9 +58,11 @@ export default function ProductDetail() {
     return item.cartItemId === `${product.id}-${variantId}`;
   });
 
-  const images = product.product_images?.length 
-    ? product.product_images.sort((a, b) => a.display_order - b.display_order)
-    : [{ id: 'fallback', url: 'https://via.placeholder.com/600', display_order: 0, is_primary: true }];
+  const images = (product.images && product.images.length > 0)
+    ? product.images.map((url, i) => ({ id: `img-${i}`, url, display_order: i, is_primary: i === 0 }))
+    : (product.product_images && product.product_images.length > 0)
+      ? [...product.product_images].sort((a, b) => a.display_order - b.display_order)
+      : [{ id: 'fallback', url: 'https://via.placeholder.com/600', display_order: 0, is_primary: true }];
 
   const handleAddToCart = () => {
     if (product.product_variants?.length && !selectedVariant) {
@@ -99,10 +101,11 @@ export default function ProductDetail() {
         <div className="space-y-4">
           <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-sm group relative">
             <img 
-              src={images[currentImageIdx].url} 
+              src={images[currentImageIdx]?.url || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80'} 
               alt={product.name}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 origin-center"
-              loading="lazy"
+              loading="eager"
+              decoding="async"
+              className="w-full h-full object-cover rounded-2xl shadow-2xl transition-transform duration-500 group-hover:scale-105 origin-center"
             />
             
             {/* Navigation Arrows */}
@@ -141,11 +144,17 @@ export default function ProductDetail() {
                 <button
                   key={img.id}
                   onClick={() => setCurrentImageIdx(idx)}
-                  className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition ${
-                    idx === currentImageIdx ? 'border-blue-600' : 'border-transparent opacity-70 hover:opacity-100'
+                  className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${
+                    currentImageIdx === idx ? 'border-gray-900 ring-2 ring-gray-900/10' : 'border-transparent hover:border-gray-200'
                   }`}
                 >
-                  <img src={img.url} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  <img 
+                    src={img.url} 
+                    alt={`${product.name} ${idx + 1}`} 
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover" 
+                  />
                 </button>
               ))}
             </div>

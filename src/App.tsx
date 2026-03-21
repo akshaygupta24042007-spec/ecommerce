@@ -73,7 +73,7 @@ const PublicLayout = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-gray-50 overflow-x-hidden">
       <AnnouncementBar />
       <header className="bg-white/80 backdrop-blur-md border-b sticky top-0 z-10 shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
@@ -231,7 +231,7 @@ const PublicLayout = () => {
           </div>
         </>
       )}
-      <main className="flex-1 w-full bg-gray-50">
+      <main className="flex-1 w-full bg-gray-50 pb-20 lg:pb-0">
         <Outlet />
       </main>
       <OrderModal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)} />

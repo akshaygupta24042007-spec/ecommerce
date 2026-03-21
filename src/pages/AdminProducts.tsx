@@ -14,12 +14,14 @@ export default function AdminProducts() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     name: '',
+    slug: '',
     short_description: '',
     status: 'published',
     is_available: true,
     is_bestseller: false,
+    images: [] as string[],
   });
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
 
   const { data: categories } = useQuery({
     queryKey: ['admin-categories'],
@@ -52,42 +54,53 @@ export default function AdminProducts() {
   const createMutation = useMutation({
     mutationFn: async () => {
       // 1. Create product
-      const slug = formData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const { data: product, error: productError } = await supabase
         .from('products')
-        .insert([{ ...formData, slug }])
+        .insert([formData])
         .select()
         .single();
       
       if (productError) throw productError;
 
-      // 2. Upload image if exists
-      if (file && product) {
+      // 2. Upload images if exist
+      if (files.length > 0 && product) {
         setUploading(true);
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${product.id}-${Math.random()}.${fileExt}`;
-        const filePath = `products/${fileName}`;
+        const uploadedUrls: string[] = [];
 
-        const { error: uploadError } = await supabase.storage
-          .from('store-assets')
-          .upload(filePath, file);
+        for (const file of files) {
+          const fileExt = file.name.split('.').pop();
+          const fileName = `${product.id}-${Math.random()}.${fileExt}`;
+          const filePath = `products/${fileName}`;
 
-        if (uploadError) throw uploadError;
+          const { error: uploadError } = await supabase.storage
+            .from('store-assets')
+            .upload(filePath, file);
 
-        const { data: publicUrlData } = supabase.storage
-          .from('store-assets')
-          .getPublicUrl(filePath);
+          if (uploadError) throw uploadError;
 
-        // 3. Save image record
-        const { error: imageError } = await supabase
-          .from('product_images')
-          .insert([{
-            product_id: product.id,
-            url: publicUrlData.publicUrl,
-            is_primary: true
-          }]);
+          const { data: publicUrlData } = supabase.storage
+            .from('store-assets')
+            .getPublicUrl(filePath);
+          
+          uploadedUrls.push(publicUrlData.publicUrl);
 
-        if (imageError) throw imageError;
+          // Save image record in product_images (legacy support)
+          await supabase
+            .from('product_images')
+            .insert([{
+              product_id: product.id,
+              url: publicUrlData.publicUrl,
+              is_primary: uploadedUrls.length === 1
+            }]);
+        }
+
+        // Update product images array
+        const { error: updateError } = await supabase
+          .from('products')
+          .update({ images: uploadedUrls })
+          .eq('id', product.id);
+        
+        if (updateError) throw updateError;
         setUploading(false);
       }
 
@@ -106,9 +119,9 @@ export default function AdminProducts() {
       queryClient.invalidateQueries({ queryKey: ['admin-products'] });
       toast.success('Product created!');
       setIsAdding(false);
-      setFormData({ name: '', short_description: '', status: 'published', is_available: true, is_bestseller: false });
+      setFormData({ name: '', slug: '', short_description: '', status: 'published', is_available: true, is_bestseller: false, images: [] });
       setSelectedCategories([]);
-      setFile(null);
+      setFiles([]);
     },
     onError: (err: any) => {
       toast.error('Error: ' + err.message);
@@ -131,38 +144,44 @@ export default function AdminProducts() {
       
       if (productError) throw productError;
 
-      // 2. Handle image update if exists
-      if (file) {
+      // 2. Handle image updates if exist
+      let currentImages = [...formData.images];
+      
+      if (files.length > 0) {
         setUploading(true);
-        const fileExt = file.name.split('.').pop();
-        const fileName = `${editingProduct.id}-${Math.random()}.${fileExt}`;
-        const filePath = `products/${fileName}`;
+        for (const file of files) {
+          const fileExt = file.name.split('.').pop();
+          const fileName = `${editingProduct.id}-${Math.random()}.${fileExt}`;
+          const filePath = `products/${fileName}`;
 
-        const { error: uploadError } = await supabase.storage
-          .from('store-assets')
-          .upload(filePath, file);
+          const { error: uploadError } = await supabase.storage
+            .from('store-assets')
+            .upload(filePath, file);
 
-        if (uploadError) throw uploadError;
+          if (uploadError) throw uploadError;
 
-        const { data: publicUrlData } = supabase.storage
-          .from('store-assets')
-          .getPublicUrl(filePath);
+          const { data: publicUrlData } = supabase.storage
+            .from('store-assets')
+            .getPublicUrl(filePath);
 
-        // Update or insert image record (setting existing primary to false first)
+          currentImages.push(publicUrlData.publicUrl);
+
+          // Sync with product_images (legacy support)
+          await supabase
+            .from('product_images')
+            .insert([{
+              product_id: editingProduct.id,
+              url: publicUrlData.publicUrl,
+              is_primary: currentImages.length === 1
+            }]);
+        }
+        
+        // Update product with all images
         await supabase
-          .from('product_images')
-          .update({ is_primary: false })
-          .eq('product_id', editingProduct.id);
+          .from('products')
+          .update({ images: currentImages })
+          .eq('id', editingProduct.id);
 
-        const { error: imageError } = await supabase
-          .from('product_images')
-          .insert([{
-            product_id: editingProduct.id,
-            url: publicUrlData.publicUrl,
-            is_primary: true
-          }]);
-
-        if (imageError) throw imageError;
         setUploading(false);
       }
 
@@ -188,9 +207,9 @@ export default function AdminProducts() {
       queryClient.invalidateQueries({ queryKey: ['admin-products'] });
       toast.success('Product updated!');
       setEditingProduct(null);
-      setFormData({ name: '', short_description: '', status: 'published', is_available: true, is_bestseller: false });
+      setFormData({ name: '', slug: '', short_description: '', status: 'published', is_available: true, is_bestseller: false, images: [] });
       setSelectedCategories([]);
-      setFile(null);
+      setFiles([]);
     },
     onError: (err: any) => {
       toast.error('Error updating: ' + err.message);
@@ -211,7 +230,7 @@ export default function AdminProducts() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
+      setFiles(prev => [...prev, ...Array.from(e.target.files!)]);
     }
   };
 
@@ -223,7 +242,7 @@ export default function AdminProducts() {
           onClick={() => {
             if (editingProduct) {
               setEditingProduct(null);
-              setFormData({ name: '', short_description: '', status: 'published', is_available: true, is_bestseller: false });
+              setFormData({ name: '', slug: '', short_description: '', status: 'published', is_available: true, is_bestseller: false, images: [] });
               setSelectedCategories([]);
             } else {
               setIsAdding(!isAdding);
@@ -255,8 +274,29 @@ export default function AdminProducts() {
                   required
                   type="text"
                   value={formData.name}
-                  onChange={e => setFormData({...formData, name: e.target.value})}
+                  onChange={e => {
+                    const newName = e.target.value;
+                    const newSlug = newName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    setFormData(prev => ({
+                      ...prev, 
+                      name: newName,
+                      slug: prev.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') === prev.slug || !prev.slug
+                        ? newSlug 
+                        : prev.slug
+                    }));
+                  }}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2 px-3 border"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 font-mono text-xs uppercase tracking-wider">URL Slug</label>
+                <input
+                  required
+                  type="text"
+                  value={formData.slug}
+                  placeholder="product-url-identifier"
+                  onChange={e => setFormData({...formData, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, '')})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2 px-3 border font-mono text-sm bg-gray-50"
                 />
               </div>
               <div className="md:col-span-2">
@@ -303,14 +343,62 @@ export default function AdminProducts() {
                   Bestseller Product
                 </label>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Image</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                />
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>
+                
+                {formData.images.length > 0 && (
+                  <div className="grid grid-cols-4 md:grid-cols-6 gap-4 mb-4">
+                    {formData.images.map((url, index) => (
+                      <div key={index} className="relative group aspect-square rounded-lg overflow-hidden bg-gray-100 border">
+                        <img src={url} alt="" className="w-full h-full object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, images: formData.images.filter((_, i) => i !== index) })}
+                          className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <Trash2 className="w-5 h-5 text-white" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="flex items-center gap-4">
+                  <div className="flex-1">
+                    <input
+                      type="file"
+                      id="image-upload"
+                      accept="image/*"
+                      multiple
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+                    <label 
+                      htmlFor="image-upload"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-md border border-blue-200 cursor-pointer hover:bg-blue-100 transition-colors font-medium text-sm"
+                    >
+                      <Plus className="w-4 h-4" />
+                      Add Images
+                    </label>
+                    <p className="mt-1.5 text-xs text-gray-500 font-medium">
+                      Hold <kbd className="bg-gray-100 px-1 rounded border">Ctrl</kbd> or <kbd className="bg-gray-100 px-1 rounded border">Shift</kbd> to select multiple!
+                    </p>
+                  </div>
+                  {files.length > 0 && (
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm text-gray-700 font-semibold bg-blue-50 px-2 py-1 rounded">
+                        {files.length} new staged
+                      </span>
+                      <button 
+                        type="button"
+                        onClick={() => setFiles([])}
+                        className="text-xs text-red-600 hover:text-red-700 font-bold uppercase tracking-wider"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">Categories</label>
@@ -413,10 +501,12 @@ export default function AdminProducts() {
                         setEditingProduct(product);
                          setFormData({
                           name: product.name,
+                          slug: product.slug || '',
                           short_description: product.short_description || '',
                           status: product.status,
                           is_available: product.is_available,
                           is_bestseller: !!product.is_bestseller,
+                          images: product.images || [],
                         });
                         setSelectedCategories(product.product_categories?.map((pc: any) => pc.category_id) || []);
                         setIsAdding(false);

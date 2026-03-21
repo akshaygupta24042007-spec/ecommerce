@@ -51,6 +51,7 @@ export interface Product {
   is_available: boolean;
   is_bestseller: boolean;
   created_at: string;
+  images: string[];
   
   // Relations mapped by Supabase query
   product_images?: ProductImage[];

@@ -26,7 +26,7 @@ export function AnnouncementBar() {
   }, []);
 
   return (
-    <div className="bg-gray-900 text-white overflow-hidden h-10 flex items-center justify-center text-sm px-4">
+    <div className="bg-gray-900 text-white overflow-hidden h-10 flex items-center justify-center text-sm px-4 w-full min-w-full relative z-50">
       <div className="relative w-full max-w-7xl mx-auto flex items-center justify-center h-full">
         {announcements.map((announcement, index) => {
           const Icon = announcement.icon;
