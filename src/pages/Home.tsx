@@ -152,17 +152,6 @@ export default function Home() {
                 Shop Now
               </Link>
             </div>
-
-            {/* Trust Strip */}
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-white/90 text-sm font-semibold tracking-wide drop-shadow-md">
-              <div className="flex items-center gap-1.5 whitespace-nowrap"><span role="img" aria-label="Globe">🌍</span> Worldwide Shipping</div>
-              <span className="text-white/40 hidden sm:inline">|</span>
-              <div className="flex items-center gap-1.5 whitespace-nowrap"><span role="img" aria-label="Thread">🧵</span> Handmade</div>
-              <span className="text-white/40 hidden md:inline">|</span>
-              <div className="flex items-center gap-1.5 whitespace-nowrap"><span role="img" aria-label="Leaf">🌿</span> Premium Cotton</div>
-              <span className="text-white/40 hidden sm:inline">|</span>
-              <div className="flex items-center gap-1.5 whitespace-nowrap"><span role="img" aria-label="Lock">🔒</span> Secure Checkout</div>
-            </div>
           </motion.div>
         </div>
       </div>
