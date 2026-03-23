@@ -32,6 +32,18 @@ async function generateSitemap() {
 
   console.log(`Found ${products.length} products.`);
 
+  console.log('Fetching blogs from Supabase...');
+  const { data: blogs, error: blogsError } = await supabase
+    .from('blogs')
+    .select('slug, created_at');
+
+  if (blogsError) {
+    console.error('Error fetching blogs:', blogsError);
+    process.exit(1);
+  }
+
+  console.log(`Found ${blogs?.length || 0} blogs.`);
+
   const staticPages = [
     { url: '/', changefreq: 'daily', priority: '1.0' },
     { url: '/search', changefreq: 'daily', priority: '0.8' },
@@ -54,6 +66,13 @@ async function generateSitemap() {
     <lastmod>${new Date(product.created_at).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>`).join('')}
+  ${(blogs || []).map(blog => `
+  <url>
+    <loc>${SITE_URL}/blogs/${blog.slug}</loc>
+    <lastmod>${new Date(blog.created_at).toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>`).join('')}
 </urlset>`;
 

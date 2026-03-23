@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
+import SEO from '../components/SEO';
 
 export default function About() {
   
   return (
     <div className="max-w-4xl mx-auto px-4 py-16 sm:py-24">
+      <SEO title="About Us" description="Learn more about Hiya International, our story, and our commitment to slow fashion and craftsmanship." path="/about" />
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}

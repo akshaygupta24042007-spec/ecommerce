@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useQuery } from '@tanstack/react-query';
 import { Package, Eye, MessageCircle, Instagram, Plus, ArrowRight } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="p-6 sm:p-8 max-w-7xl mx-auto">
+      <SEO title="Admin Dashboard" noindex={true} />
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
         <Link

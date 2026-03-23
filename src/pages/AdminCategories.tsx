@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase';
 import type { Category } from '../lib/types';
 import { Plus, Pencil, Trash2, GripVertical, X, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 
 export default function AdminCategories() {
   const queryClient = useQueryClient();
@@ -93,6 +94,7 @@ export default function AdminCategories() {
 
   return (
     <div className="p-6 max-w-2xl">
+      <SEO title="Admin Categories" noindex={true} />
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Categories</h1>
         <button

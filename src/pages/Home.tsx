@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { Instagram, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { OrderModal } from '../components/OrderModal';
 import { motion, AnimatePresence } from 'framer-motion';
+import SEO from '../components/SEO';
 
 export default function Home() {
   const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getStoreSettings });
@@ -63,19 +64,12 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [currentBanner]); // Re-run effect when currentBanner changes to reset the interval
 
-  useEffect(() => {
-    if (settings) {
-      document.title = `${settings.store_name} | ${settings.store_tagline || 'Shop & Order'}`;
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute('id', 'j6b6o3');
-        metaDesc.setAttribute('content', 'Discover premium handmade kimonos, jackets, dresses, bags and more at Hiya Wear. Designed for global customers with high-quality fabrics and unique styles.');
-      }
-    }
-  }, [settings]);
-
   return (
     <div>
+      <SEO 
+        title={settings ? `${settings.store_name} | ${settings.store_tagline || 'Shop & Order'}` : undefined} 
+        path="/" 
+      />
       {/* Hero Section */}
       <div className="relative min-h-[250px] sm:min-h-[600px] flex items-end overflow-hidden bg-gray-900">
         {/* Background Image Carousel */}
@@ -186,7 +180,7 @@ export default function Home() {
                 Hiya Wear – <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium Handmade Fashion for Global Customers</span>
               </h1>
               <p className="text-lg sm:text-xl text-gray-600 leading-relaxed font-medium">
-                Hiya Wear is an online clothing store in India offering trendy and affordable fashion. Explore our collection of kimonos, jackets, vests, bags, cotton suzani outfits, girls dresses, pajamas, quilt sets, and skirts. We focus on style, comfort, and quality at budget-friendly prices.
+                Hiya Wear is a global fashion brand offering handcrafted Indian textiles designed for modern lifestyles worldwide.”Explore our collection of kimonos, jackets, vests, bags, cotton suzani outfits, girls dresses, pajamas, quilt sets, and skirts.
               </p>
               <div className="mt-8 flex gap-2">
                  <div className="h-1 w-20 bg-blue-600 rounded-full" />

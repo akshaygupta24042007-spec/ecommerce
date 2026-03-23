@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { Lock, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -33,6 +34,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <SEO title="Admin Login" noindex={true} />
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-sm border">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

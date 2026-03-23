@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
 import { Plus, Edit, Trash2, Image as ImageIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 import type { Product, Category } from '../lib/types';
 
 export default function AdminProducts() {
@@ -16,6 +17,7 @@ export default function AdminProducts() {
     name: '',
     slug: '',
     short_description: '',
+    full_description: '',
     status: 'published',
     is_available: true,
     is_bestseller: false,
@@ -119,7 +121,7 @@ export default function AdminProducts() {
       queryClient.invalidateQueries({ queryKey: ['admin-products'] });
       toast.success('Product created!');
       setIsAdding(false);
-      setFormData({ name: '', slug: '', short_description: '', status: 'published', is_available: true, is_bestseller: false, images: [] });
+      setFormData({ name: '', slug: '', short_description: '', full_description: '', status: 'published', is_available: true, is_bestseller: false, images: [] });
       setSelectedCategories([]);
       setFiles([]);
     },
@@ -207,7 +209,7 @@ export default function AdminProducts() {
       queryClient.invalidateQueries({ queryKey: ['admin-products'] });
       toast.success('Product updated!');
       setEditingProduct(null);
-      setFormData({ name: '', slug: '', short_description: '', status: 'published', is_available: true, is_bestseller: false, images: [] });
+      setFormData({ name: '', slug: '', short_description: '', full_description: '', status: 'published', is_available: true, is_bestseller: false, images: [] });
       setSelectedCategories([]);
       setFiles([]);
     },
@@ -235,14 +237,15 @@ export default function AdminProducts() {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
+    <div className="p-6 sm:p-8 max-w-7xl mx-auto">
+      <SEO title="Admin Products" noindex={true} />
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <h1 className="text-2xl font-bold">Products</h1>
         <button
           onClick={() => {
             if (editingProduct) {
               setEditingProduct(null);
-              setFormData({ name: '', slug: '', short_description: '', status: 'published', is_available: true, is_bestseller: false, images: [] });
+              setFormData({ name: '', slug: '', short_description: '', full_description: '', status: 'published', is_available: true, is_bestseller: false, images: [] });
               setSelectedCategories([]);
             } else {
               setIsAdding(!isAdding);
@@ -306,6 +309,16 @@ export default function AdminProducts() {
                   value={formData.short_description}
                   onChange={e => setFormData({...formData, short_description: e.target.value})}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2 px-3 border"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700">Full Description</label>
+                <textarea
+                  rows={4}
+                  value={formData.full_description}
+                  onChange={e => setFormData({...formData, full_description: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2 px-3 border"
+                  placeholder="Can use HTML tags like <br> or <strong>"
                 />
               </div>
               <div>
@@ -503,6 +516,7 @@ export default function AdminProducts() {
                           name: product.name,
                           slug: product.slug || '',
                           short_description: product.short_description || '',
+                          full_description: product.full_description || '',
                           status: product.status,
                           is_available: product.is_available,
                           is_bestseller: !!product.is_bestseller,

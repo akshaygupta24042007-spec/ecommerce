@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getBlog, getStoreSettings } from '../lib/api';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 import { ChevronLeft, Calendar } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function BlogDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -16,17 +16,6 @@ export default function BlogDetail() {
     queryFn: () => getBlog(slug as string),
     enabled: !!slug
   });
-
-  useEffect(() => {
-    if (blog) {
-      document.title = `${blog.meta_title || blog.title} | ${settings?.store_name || 'Store'}`;
-      
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc && blog.meta_description) {
-        metaDesc.setAttribute('content', blog.meta_description);
-      }
-    }
-  }, [blog, settings]);
 
   if (isError) {
     return (
@@ -58,6 +47,11 @@ export default function BlogDetail() {
 
   return (
     <article className="bg-white min-h-screen pb-24">
+      <SEO 
+        title={settings ? `${blog.meta_title || blog.title} | ${settings.store_name}` : blog.meta_title || blog.title} 
+        description={blog.meta_description || "Read our latest article."} 
+        path={`/blogs/${slug}`} 
+      />
       {/* Hero Image Section if exists */}
       {blog.image && (
         <div className="w-full h-[40vh] min-h-[400px] relative bg-gray-900">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getProduct, getStoreSettings, getRelatedProducts } from '../lib/api';
@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight, Share2, ShoppingCart, CheckCircle2, Ruler, M
 import { SizeGuideModal } from '../components/SizeGuideModal';
 import { createWhatsAppLink } from '../utils/orderLinks';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -34,16 +35,6 @@ export default function ProductDetail() {
     queryFn: () => getRelatedProducts(product!.id),
     enabled: !!product,
   });
-
-  useEffect(() => {
-    if (product && settings) {
-      document.title = `${product.name} | ${settings.store_name}`;
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute('content', product.short_description || `Order ${product.name} directly via WhatsApp or Instagram.`);
-      }
-    }
-  }, [product, settings]);
 
   if (isLoadingProduct) {
     return <div className="p-8 text-center animate-pulse">Loading product...</div>;
@@ -91,6 +82,11 @@ export default function ProductDetail() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 md:py-10">
+      <SEO 
+        title={settings ? `${product.name} | ${settings.store_name}` : product.name} 
+        description={product.short_description || `Order ${product.name} directly from Hiya Wear.`} 
+        path={`/product/${id}`} 
+      />
       <Link to="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-900 mb-6">
         <ChevronLeft className="w-4 h-4 mr-1" />
         Back to Shop
@@ -169,6 +165,12 @@ export default function ProductDetail() {
               <Share2 className="w-5 h-5" />
             </button>
           </div>
+          
+          {product.short_description && (
+            <p className="mt-2 text-base text-gray-600 leading-relaxed">
+              {product.short_description}
+            </p>
+          )}
           
           <div className="mt-4 flex flex-col gap-1 border-b pb-6">
             <div className={`mt-2 flex items-center gap-2 text-sm font-medium ${product.is_available ? 'text-emerald-600' : 'text-red-500'}`}>

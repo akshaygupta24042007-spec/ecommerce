@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
 import { Plus, Edit, Trash2, Image as ImageIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 import type { Blog } from '../lib/types';
 
 export default function AdminBlogs() {
@@ -145,6 +146,7 @@ export default function AdminBlogs() {
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
+      <SEO title="Admin Blogs" noindex={true} />
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Blogs</h1>
         <button

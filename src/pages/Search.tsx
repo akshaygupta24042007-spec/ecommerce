@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getProducts, getStoreSettings } from '../lib/api';
 import { ProductCard } from '../components/ProductCard';
 import { Search as SearchIcon, X } from 'lucide-react';
+import SEO from '../components/SEO';
 
 // Custom hook for debouncing search input
 function useDebounce<T>(value: T, delay: number): T {
@@ -24,12 +25,6 @@ export default function Search() {
 
   const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getStoreSettings });
   
-  useEffect(() => {
-    if (settings) {
-      document.title = debouncedSearch ? `Results for "${debouncedSearch}" | ${settings.store_name}` : `Search | ${settings.store_name}`;
-    }
-  }, [debouncedSearch, settings]);
-  
   const { data, isLoading } = useQuery({
     queryKey: ['products', 'search', debouncedSearch],
     queryFn: () => getProducts(undefined, debouncedSearch),
@@ -48,8 +43,15 @@ export default function Search() {
     }
   }, [debouncedSearch, setSearchParams]);
 
+  const searchTitle = debouncedSearch ? `Results for "${debouncedSearch}"` : 'Search Products';
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <SEO 
+        title={settings ? `${searchTitle} | ${settings.store_name}` : searchTitle} 
+        description="Search for premium handmade clothing, kimonos, jackets, and more at Hiya Wear." 
+        path="/search" 
+      />
       <div className="max-w-2xl mx-auto mb-10">
         <div className="relative flex items-center w-full h-14 rounded-full shadow-sm bg-white border overflow-hidden focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-400 transition-shadow">
           <div className="grid place-items-center h-full w-12 text-gray-400">

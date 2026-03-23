@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
 import { getStoreSettings } from '../lib/api';
 import toast from 'react-hot-toast';
+import SEO from '../components/SEO';
 
 export default function AdminSettings() {
   const queryClient = useQueryClient();
@@ -74,6 +75,7 @@ export default function AdminSettings() {
 
   return (
     <div className="p-8 max-w-3xl mx-auto">
+      <SEO title="Admin Settings" noindex={true} />
       <h1 className="text-2xl font-bold mb-6">Store Settings</h1>
       
       <form onSubmit={handleSubmit} className="space-y-8 bg-white p-6 shadow-sm border rounded-lg">

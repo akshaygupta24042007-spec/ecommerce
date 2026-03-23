@@ -2,12 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { getStoreSettings } from '../lib/api';
 import { createWhatsAppLink, createInstagramLink } from '../utils/orderLinks';
 import { MessageCircle, Instagram, Mail } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Contact() {
   const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getStoreSettings });
   
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
+      <SEO title="Contact Us" description="Get in touch with Hiya International for any inquiries or support." path="/contact" />
       <h1 className="text-3xl font-bold mb-6 text-gray-900">Contact Us</h1>
       <p className="text-gray-600 mb-8 text-lg">We'd love to hear from you. Get in touch with us through the channels below for any inquiries or support.</p>
       

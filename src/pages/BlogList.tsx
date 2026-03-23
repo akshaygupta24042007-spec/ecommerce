@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getBlogs, getStoreSettings } from '../lib/api';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 import { Clock } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function BlogList() {
   const { data: settings } = useQuery({ queryKey: ['settings'], queryFn: getStoreSettings });
@@ -12,14 +12,13 @@ export default function BlogList() {
     queryFn: getBlogs 
   });
 
-  useEffect(() => {
-    if (settings) {
-      document.title = `Blog | ${settings.store_name}`;
-    }
-  }, [settings]);
-
   return (
     <div className="bg-gray-50 min-h-screen pt-12 pb-24">
+      <SEO 
+        title={`Blog | ${settings?.store_name || 'Hiya Wear'}`} 
+        description="Discover styling tips, behind the scenes, and updates from the world of Hiya Wear." 
+        path="/blogs" 
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
