@@ -180,24 +180,7 @@ export default function Home() {
       </div>
 
       {/* Brand Story Section */}
-      <section className="bg-white py-12 sm:py-20 overflow-hidden border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-           <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.8 }}
-           >
-             <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight leading-tight">
-               Hiya Wear – <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium Handmade Fashion for Global Customers</span>
-             </h1>
-             <div className="flex justify-center gap-2 mb-8">
-                <div className="h-1.5 w-24 bg-blue-600 rounded-full shadow-[0_0_10px_rgba(37,99,235,0.3)]" />
-                <div className="h-1.5 w-12 bg-indigo-200 rounded-full" />
-             </div>
-           </motion.div>
-        </div>
-
+      <section className="bg-white py-12 sm:py-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
             <motion.div 
@@ -207,9 +190,16 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="lg:w-1/2"
             >
-              <p className="text-lg sm:text-2xl text-gray-600 leading-relaxed font-semibold">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6 tracking-tight">
+                Hiya Wear – <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium Handmade Fashion for Global Customers</span>
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed font-medium">
                 Hiya Wear is a global fashion brand offering handcrafted Indian textiles designed for modern lifestyles worldwide.”Explore our collection of kimonos, jackets, vests, bags, cotton suzani outfits, girls dresses, pajamas, quilt sets, and skirts.
               </p>
+              <div className="mt-8 flex gap-2">
+                 <div className="h-1 w-20 bg-blue-600 rounded-full" />
+                 <div className="h-1 w-10 bg-indigo-200 rounded-full" />
+              </div>
             </motion.div>
             
             <motion.div 
