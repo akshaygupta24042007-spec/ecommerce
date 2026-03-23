@@ -190,12 +190,12 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                   <Star className="w-8 h-8 text-blue-600 mb-3" />
-                  <h3 className="font-bold text-gray-900">Trendy Style</h3>
-                  <p className="text-sm text-gray-500">Handpicked fashion that keeps you ahead of the trend.</p>
+                  <h3 className="font-bold text-gray-900">Timeless Design</h3>
+                  <p className="text-sm text-gray-500">Handpicked fashion that transcends seasonal trends.</p>
                 </div>
                 <div className="bg-blue-600 rounded-2xl p-6 text-white shadow-lg shadow-blue-200 hover:shadow-blue-300 transition-shadow">
-                  <h3 className="font-bold text-lg mb-1">Budget Friendly</h3>
-                  <p className="text-blue-100 text-sm">Quality fashion accessible to everyone, everywhere.</p>
+                  <h3 className="font-bold text-lg mb-1">Authentic Handcrafted</h3>
+                  <p className="text-blue-100 text-sm">Crafted with precision using traditional techniques and premium fabrics.</p>
                 </div>
               </div>
               <div className="space-y-4 pt-8">
