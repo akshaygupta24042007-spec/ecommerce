@@ -228,7 +228,7 @@ export default function Home() {
               Serving Customers Worldwide
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 leading-relaxed font-medium">
-              Hiya Wear caters to customers across different countries, offering reliable service and high-quality products. Our focus is on delivering unique fashion pieces to a global audience with consistency and care.
+              We bring traditional Indian craftsmanship to customers across the world, combining timeless techniques with modern designs.
             </p>
             <div className="mt-10 flex justify-center items-center gap-6 text-4xl sm:text-5xl grayscale opacity-30 select-none">
                <span role="img" aria-label="Globe">🌍</span>
