@@ -141,17 +141,27 @@ export default function Home() {
             className="max-w-xl"
           >
 
-            <p className="text-base sm:text-2xl text-white mb-6 sm:mb-20 max-w-md font-bold leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            <p className="text-base sm:text-2xl text-white mb-6 sm:mb-8 max-w-md font-bold leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               {settings?.store_tagline || 'Discover curated collections crafted for your unique style. Order effortlessly via WhatsApp or Instagram.'}
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 mb-6 sm:mb-8">
               <Link 
                 to="/search" 
                 className="inline-flex items-center px-8 py-4 rounded-xl bg-white text-gray-900 font-bold hover:bg-gray-100 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] text-sm sm:text-base"
               >
                 Shop Now
               </Link>
+            </div>
 
+            {/* Trust Strip */}
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-white/90 text-sm font-semibold tracking-wide drop-shadow-md">
+              <div className="flex items-center gap-1.5 whitespace-nowrap"><span role="img" aria-label="Globe">🌍</span> Worldwide Shipping</div>
+              <span className="text-white/40 hidden sm:inline">|</span>
+              <div className="flex items-center gap-1.5 whitespace-nowrap"><span role="img" aria-label="Thread">🧵</span> Handmade</div>
+              <span className="text-white/40 hidden md:inline">|</span>
+              <div className="flex items-center gap-1.5 whitespace-nowrap"><span role="img" aria-label="Leaf">🌿</span> Premium Cotton</div>
+              <span className="text-white/40 hidden sm:inline">|</span>
+              <div className="flex items-center gap-1.5 whitespace-nowrap"><span role="img" aria-label="Lock">🔒</span> Secure Checkout</div>
             </div>
           </motion.div>
         </div>
