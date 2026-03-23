@@ -151,15 +151,7 @@ export default function Home() {
               >
                 Shop Now
               </Link>
-              {/* Order Now Button */}
-              {(settings?.whatsapp_number || settings?.instagram_username) && (
-                <button 
-                  onClick={() => setIsOrderModalOpen(true)}
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-black/5 backdrop-blur-md text-gray-900 border border-black/10 font-bold hover:bg-black/10 hover:scale-105 transition-all shadow-lg text-sm sm:text-base"
-                >
-                  Order Now
-                </button>
-              )}
+
             </div>
           </motion.div>
         </div>

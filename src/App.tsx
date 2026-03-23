@@ -125,14 +125,7 @@ const PublicLayout = () => {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-4">
-            {(settings?.whatsapp_number || settings?.instagram_username) && (
-              <button 
-                onClick={() => setIsOrderModalOpen(true)}
-                className="hidden sm:flex items-center gap-1.5 bg-gray-900 hover:bg-gray-800 text-white px-3 py-1.5 rounded-md text-sm font-semibold transition-colors"
-              >
-                <span>Order Now</span>
-              </button>
-            )}
+
             
             <Link to="/search" className="p-2 text-gray-700 hover:text-gray-900 transition-colors">
               <SearchIcon className="w-5 h-5" />
@@ -225,14 +218,7 @@ const PublicLayout = () => {
                   </span>
                 )}
               </button>
-              {(settings?.whatsapp_number || settings?.instagram_username) && (
-                <button 
-                  onClick={() => setIsOrderModalOpen(true)}
-                  className="w-full flex items-center justify-center gap-3 px-3 py-3 mt-4 bg-gray-900 text-white rounded-md font-semibold hover:bg-gray-800 transition-colors"
-                >
-                  Order Now
-                </button>
-              )}
+
             </nav>
             <div className="p-4 border-t border-gray-100 text-sm text-gray-500">
               <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gray-900">Merchant Login</Link>
