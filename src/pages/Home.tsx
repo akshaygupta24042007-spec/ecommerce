@@ -167,6 +167,29 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Trust Strip */}
+      <div className="bg-gray-900 text-white py-4 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm sm:text-base font-semibold tracking-wide">
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <span className="text-lg">🌍</span> Worldwide Shipping
+            </div>
+            <span className="text-white/30 hidden sm:inline">|</span>
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <span className="text-lg">🧵</span> Handmade
+            </div>
+            <span className="text-white/30 hidden sm:inline">|</span>
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <span className="text-lg">🌿</span> Premium Cotton
+            </div>
+            <span className="text-white/30 hidden sm:inline">|</span>
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <span className="text-lg">🔒</span> Secure Checkout
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Brand Story Section */}
       <section className="bg-white py-12 sm:py-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
