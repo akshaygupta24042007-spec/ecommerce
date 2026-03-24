@@ -5,7 +5,6 @@ import { ProductCard } from '../components/ProductCard';
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { OrderModal } from '../components/OrderModal';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 
@@ -16,7 +15,6 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>();
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 12;
-  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const categoryRef = useRef<HTMLDivElement>(null);
 
   const scrollCategories = (direction: 'left' | 'right') => {
@@ -49,7 +47,11 @@ export default function Home() {
     '/new-hero-banner-8.jpg',
     '/new-hero-banner-7.png',
     '/new-hero-banner-6.png',
-    '/new-hero-banner-5.png'
+    '/new-hero-banner-5.png',
+    '/new-hero-banner-4.jpg',
+    '/new-hero-banner-3.jpg',
+    '/new-hero-banner-2.jpg',
+    '/new-hero-banner-1.jpg'
   ];
 
   const paginate = (newDirection: number) => {
@@ -67,7 +69,7 @@ export default function Home() {
   return (
     <div>
       <SEO 
-        title={settings ? `${settings.store_name} | ${settings.store_tagline || 'Shop & Order'}` : undefined} 
+        title={settings?.store_tagline || 'Shop & Order'} 
         path="/" 
       />
       {/* Hero Section */}
@@ -156,29 +158,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Trust Strip */}
-      <div className="bg-gray-900 text-white py-4 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm sm:text-base font-semibold tracking-wide">
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <span className="text-lg">🌍</span> Worldwide Shipping
-            </div>
-            <span className="text-white/30 hidden sm:inline">|</span>
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <span className="text-lg">🧵</span> Handmade
-            </div>
-            <span className="text-white/30 hidden sm:inline">|</span>
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <span className="text-lg">🌿</span> Premium Cotton
-            </div>
-            <span className="text-white/30 hidden sm:inline">|</span>
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <span className="text-lg">🔒</span> Secure Checkout
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Brand Story Section */}
       <section className="bg-white py-12 sm:py-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -190,11 +169,17 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="lg:w-1/2"
             >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 mb-6 group hover:bg-blue-100 transition-all cursor-default shadow-sm hover:shadow-md">
+                <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+                <span className="text-xs sm:text-sm font-bold text-blue-700 uppercase tracking-wide">
+                  🌍 Worldwide Shipping | 🧵 Handmade | 🌿 Premium Cotton | 🔒 Secure Checkout
+                </span>
+              </div>
               <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6 tracking-tight">
                 Hiya Wear – <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium Handmade Fashion for Global Customers</span>
               </h1>
               <p className="text-lg sm:text-xl text-gray-600 leading-relaxed font-medium">
-                Hiya Wear is a global fashion brand offering handcrafted Indian textiles designed for modern lifestyles worldwide.”Explore our collection of kimonos, jackets, vests, bags, cotton suzani outfits, girls dresses, pajamas, quilt sets, and skirts.
+                Hiya Wear is a global fashion brand offering handcrafted Indian textiles designed for modern lifestyles worldwide. Explore our collection of kimonos, jackets, vests, bags, cotton suzani outfits, girls dresses, pajamas, quilt sets, and skirts.
               </p>
               <div className="mt-8 flex gap-2">
                  <div className="h-1 w-20 bg-blue-600 rounded-full" />
@@ -473,7 +458,7 @@ export default function Home() {
 
               <button
                 onClick={() => {
-                  setCurrentPage(prev => Math.min(totalPages, prev - -1)); // avoid string concat
+                  setCurrentPage(prev => Math.min(totalPages, prev + 1)); 
                   const catEl = document.getElementById('categories');
                   if (catEl) {
                     const top = catEl.getBoundingClientRect().top + window.scrollY - 100;
@@ -722,7 +707,6 @@ export default function Home() {
         </div>
       )}
 
-      <OrderModal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)} />
     </div>
   );
 }

@@ -11,6 +11,7 @@ export function ProductCard({ product, settings }: { product: Product, settings?
 
 
   const questionMessage = `I want to know more about this product: ${product.name}\n${window.location.origin}/product/${product.slug || product.id}`;
+  const priceMessage = `Hello, I'm interested in the price of ${product.name}.\nCan you please share the details?\nLink: ${window.location.origin}/product/${product.slug || product.id}`;
 
   return (
     <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 group">
@@ -49,13 +50,26 @@ export function ProductCard({ product, settings }: { product: Product, settings?
           <p className="text-xs sm:text-sm text-gray-500 line-clamp-2 mt-1">{product.short_description}</p>
         )}
         <div className="mt-3 space-y-2">
-          <Link 
-            to={`/product/${product.slug || product.id}`}
-            className="block w-full text-center py-2.5 px-4 rounded-xl font-semibold text-white text-sm transition-all hover:opacity-90 active:scale-95"
-            style={{ backgroundColor: settings?.theme_color || '#2563eb' }}
-          >
-            View Product
-          </Link>
+          <div className="flex gap-2">
+            <Link 
+              to={`/product/${product.slug || product.id}`}
+              className="flex-1 text-center py-2.5 px-2 rounded-xl font-semibold text-white text-xs sm:text-sm transition-all hover:opacity-90 active:scale-95 flex items-center justify-center"
+              style={{ backgroundColor: settings?.theme_color || '#2563eb' }}
+            >
+              View Details
+            </Link>
+            {settings?.whatsapp_number && (
+              <a
+                href={createWhatsAppLink(settings.whatsapp_number, priceMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl text-xs sm:text-sm font-bold bg-green-600 text-white hover:bg-green-700 transition-all active:scale-95 shadow-sm"
+              >
+                <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span>Ask Price</span>
+              </a>
+            )}
+          </div>
 
           {/* Ask a Question buttons */}
           <div className="flex gap-2">
@@ -64,10 +78,10 @@ export function ProductCard({ product, settings }: { product: Product, settings?
                 href={createWhatsAppLink(settings.whatsapp_number, questionMessage)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-semibold bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 transition-colors"
+                className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-[10px] sm:text-xs font-semibold bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 transition-colors"
               >
-                <MessageCircle className="w-3.5 h-3.5" />
-                <span>Ask on WhatsApp</span>
+                <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <span>WhatsApp</span>
               </a>
             )}
             {settings?.instagram_username && (
@@ -75,10 +89,10 @@ export function ProductCard({ product, settings }: { product: Product, settings?
                 href={`https://www.instagram.com/${settings.instagram_username}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs font-semibold bg-pink-50 text-pink-700 hover:bg-pink-100 border border-pink-200 transition-colors"
+                className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-[10px] sm:text-xs font-semibold bg-pink-50 text-pink-700 hover:bg-pink-100 border border-pink-200 transition-colors"
               >
-                <Instagram className="w-3.5 h-3.5" />
-                <span>Ask on Instagram</span>
+                <Instagram className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                <span>Instagram</span>
               </a>
             )}
           </div>

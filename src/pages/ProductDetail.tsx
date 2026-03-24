@@ -294,32 +294,49 @@ export default function ProductDetail() {
 
             {/* Inquiry Actions */}
             {product.is_available && (
-              <div className="flex gap-3">
+              <div className="space-y-3">
                 {settings?.whatsapp_number && (
                   <a
                     href={createWhatsAppLink(
                       settings.whatsapp_number, 
-                      `I want to know more about this product: ${product.name}\n${window.location.href}`
+                      `Hello, I'm interested in the price of ${product.name}.\nCan you please share the details?\nLink: ${window.location.href}`
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl font-bold text-lg bg-green-600 text-white hover:bg-green-700 shadow-lg shadow-green-100 transition-all active:scale-95"
                   >
-                    <MessageCircle className="w-5 h-5" />
-                    WhatsApp
+                    <MessageCircle className="w-6 h-6" />
+                    Ask Price on WhatsApp
                   </a>
                 )}
-                {settings?.instagram_username && (
-                  <a
-                    href={`https://www.instagram.com/${settings.instagram_username}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold bg-pink-50 text-pink-700 hover:bg-pink-100 border border-pink-200 transition-colors"
-                  >
-                    <Instagram className="w-5 h-5" />
-                    Instagram
-                  </a>
-                )}
+                
+                <div className="flex gap-3">
+                  {settings?.whatsapp_number && (
+                    <a
+                      href={createWhatsAppLink(
+                        settings.whatsapp_number, 
+                        `I want to know more about this product: ${product.name}\n${window.location.href}`
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 transition-colors"
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      General Inquiry
+                    </a>
+                  )}
+                  {settings?.instagram_username && (
+                    <a
+                      href={`https://www.instagram.com/${settings.instagram_username}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-semibold bg-pink-50 text-pink-700 hover:bg-pink-100 border border-pink-200 transition-colors"
+                    >
+                      <Instagram className="w-5 h-5" />
+                      Instagram
+                    </a>
+                  )}
+                </div>
               </div>
             )}
           </div>

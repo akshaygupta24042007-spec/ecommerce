@@ -14,7 +14,10 @@ const SEO = ({
   noindex = false 
 }: SEOProps) => {
   const siteUrl = 'https://www.hiyawear.com';
-  const canonicalUrl = path ? `${siteUrl}${path}` : siteUrl;
+  
+  // Clean the path: remove leading and trailing slashes for consistent construction
+  const cleanPath = path ? path.replace(/^\/+|\/+$/g, '') : '';
+  const canonicalUrl = cleanPath ? `${siteUrl}/${cleanPath}` : siteUrl;
 
   const defaultTitle = 'Hiya Wear | Premium Handmade Clothing for Global Customers';
   const defaultDescription = 'Discover premium handmade kimonos, jackets, dresses, bags and more at Hiya Wear. Designed for global customers with high-quality fabrics and unique styles.';
