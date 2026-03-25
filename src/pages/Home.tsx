@@ -49,7 +49,6 @@ export default function Home() {
     '/new-hero-banner-6.png',
     '/new-hero-banner-5.png',
     '/new-hero-banner-4.jpg',
-    '/new-hero-banner-3.jpg',
     '/new-hero-banner-2.jpg',
     '/new-hero-banner-1.jpg'
   ];
