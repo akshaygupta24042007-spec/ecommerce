@@ -143,9 +143,7 @@ export default function Home() {
             className="max-w-xl"
           >
 
-            <p className="text-base sm:text-2xl text-white mb-6 sm:mb-8 max-w-md font-bold leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              {settings?.store_tagline || 'Discover curated collections crafted for your unique style. Order effortlessly via WhatsApp or Instagram.'}
-            </p>
+
             <div className="flex flex-wrap gap-4 mb-6 sm:mb-8">
               <Link 
                 to="/search" 
