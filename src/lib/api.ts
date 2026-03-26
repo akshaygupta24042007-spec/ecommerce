@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import type { StoreSettings, Product, Category, Blog } from './types';
+import type { StoreSettings, Product, Category, Blog, BehindTheScene } from './types';
 
 export async function getBlogs(): Promise<Blog[]> {
   const { data, error } = await supabase
@@ -147,4 +147,15 @@ export async function getRelatedProducts(productId: string, limit = 4): Promise<
 
   if (error) throw error;
   return data as Product[];
+}
+
+export async function getBehindTheScenes(): Promise<BehindTheScene[]> {
+  const { data, error } = await supabase
+    .from('behind_the_scenes')
+    .select('*')
+    .order('display_order', { ascending: true })
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data as BehindTheScene[];
 }
