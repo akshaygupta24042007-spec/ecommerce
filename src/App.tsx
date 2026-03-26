@@ -1,16 +1,5 @@
 import { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet, Link, useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { getStoreSettings } from './lib/api';
-import { supabase } from './lib/supabase';
-import { useCartStore } from './lib/store';
-import { Cart } from './components/Cart';
-import { AnnouncementBar } from './components/AnnouncementBar';
-import { BottomNav } from './components/BottomNav';
-import toast from 'react-hot-toast';
-import { OrderModal } from './components/OrderModal';
-import { createWhatsAppLink } from './utils/orderLinks';
-import { Search as SearchIcon, LogOut, ShoppingCart, Menu, X, Home as HomeIcon, Package, Info, Phone, MessageCircle, Instagram, Mail, ChevronLeft, ChevronRight, BookOpen, Video } from 'lucide-react';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -27,8 +16,17 @@ const FAQ = lazy(() => import('./pages/FAQ'));
 const AdminBlogs = lazy(() => import('./pages/AdminBlogs'));
 const BlogList = lazy(() => import('./pages/BlogList'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
-const BehindTheScenes = lazy(() => import('./pages/BehindTheScenes'));
-const AdminBehindTheScenes = lazy(() => import('./pages/AdminBehindTheScenes'));
+import { useQuery } from '@tanstack/react-query';
+import { getStoreSettings } from './lib/api';
+import { supabase } from './lib/supabase';
+import { useCartStore } from './lib/store';
+import { Cart } from './components/Cart';
+import { AnnouncementBar } from './components/AnnouncementBar';
+import { BottomNav } from './components/BottomNav';
+import toast from 'react-hot-toast';
+import { OrderModal } from './components/OrderModal';
+import { createWhatsAppLink } from './utils/orderLinks';
+import { Search as SearchIcon, LogOut, ShoppingCart, Menu, X, Home as HomeIcon, Package, Info, Phone, MessageCircle, Instagram, Mail, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 
 // Admin Layout
 const AdminLayout = () => {
@@ -343,7 +341,6 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/blogs" element={<BlogList />} />
             <Route path="/blogs/:slug" element={<BlogDetail />} />
-            <Route path="/behind-the-scenes" element={<BehindTheScenes />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/product/:id" element={<ProductDetail />} />
@@ -357,7 +354,6 @@ function App() {
             <Route path="products" element={<AdminProducts />} />
             <Route path="categories" element={<AdminCategories />} />
             <Route path="blogs" element={<AdminBlogs />} />
-            <Route path="behind-the-scenes" element={<AdminBehindTheScenes />} />
           </Route>
         </Routes>
       </Suspense>
