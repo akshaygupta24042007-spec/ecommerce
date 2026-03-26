@@ -22,6 +22,7 @@ export default function AdminSettings() {
     currency_symbol: '₹',
     whatsapp_enabled: true,
     instagram_enabled: true,
+    vercel_deploy_hook: '',
   });
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function AdminSettings() {
         currency_symbol: settings.currency_symbol || '₹',
         whatsapp_enabled: settings.whatsapp_enabled ?? true,
         instagram_enabled: settings.instagram_enabled ?? true,
+        vercel_deploy_hook: settings.vercel_deploy_hook || '',
       });
     }
   }, [settings]);
@@ -220,6 +222,61 @@ export default function AdminSettings() {
                 Enable Instagram Orders
               </label>
             </div>
+          </div>
+        </div>
+
+        <div className="pt-8 border-t border-gray-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-medium leading-6 text-gray-900">SEO & Indexing</h3>
+              <p className="mt-1 text-sm text-gray-500">Manage how search engines see your store.</p>
+            </div>
+          </div>
+
+          <div className="mt-6 space-y-6">
+            <div className="sm:col-span-4">
+              <label className="block text-sm font-medium text-gray-700">Vercel Deploy Hook URL</label>
+              <div className="mt-1">
+                <input
+                  type="url"
+                  name="vercel_deploy_hook"
+                  placeholder="https://api.vercel.com/v1/integrations/deploy/..."
+                  value={formData.vercel_deploy_hook}
+                  onChange={handleChange}
+                  className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md py-2 px-3 border"
+                />
+              </div>
+              <p className="mt-2 text-xs text-gray-500 italic">
+                Tip: Create a deploy hook in Vercel Settings → Git → Deploy Hooks. 
+                This allows you to trigger a sitemap update without pushing code.
+              </p>
+            </div>
+
+            {formData.vercel_deploy_hook && (
+              <div className="bg-blue-50 p-4 rounded-lg flex items-center justify-between border border-blue-100">
+                <div className="text-sm text-blue-700">
+                  <p className="font-semibold">Update Sitemap & Notify Google</p>
+                  <p className="mt-0.5 opacity-80">Clicking this will trigger a fresh build on Vercel to update your index.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    if (!formData.vercel_deploy_hook) return;
+                    const toastId = toast.loading('Triggering update...');
+                    try {
+                      const res = await fetch(formData.vercel_deploy_hook, { method: 'POST' });
+                      if (!res.ok) throw new Error('Deployment failed to trigger');
+                      toast.success('Sitemap update started! Check Vercel for progress.', { id: toastId });
+                    } catch (err: any) {
+                      toast.error('Error: ' + err.message, { id: toastId });
+                    }
+                  }}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 shadow-sm transition-colors"
+                >
+                  Trigger Now
+                </button>
+              </div>
+            )}
           </div>
         </div>
 

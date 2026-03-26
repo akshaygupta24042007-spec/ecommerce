@@ -13,6 +13,7 @@ export interface StoreSettings {
   theme_color: string;
   currency_symbol: string;
   locale: string;
+  vercel_deploy_hook: string | null;
 }
 
 export interface Category {
