@@ -1,5 +1,16 @@
 import { useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet, Link, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getStoreSettings } from './lib/api';
+import { supabase } from './lib/supabase';
+import { useCartStore } from './lib/store';
+import { Cart } from './components/Cart';
+import { AnnouncementBar } from './components/AnnouncementBar';
+import { BottomNav } from './components/BottomNav';
+import toast from 'react-hot-toast';
+import { OrderModal } from './components/OrderModal';
+import { createWhatsAppLink } from './utils/orderLinks';
+import { Search as SearchIcon, LogOut, ShoppingCart, Menu, X, Home as HomeIcon, Package, Info, Phone, MessageCircle, Instagram, Mail, ChevronLeft, ChevronRight, BookOpen, Video } from 'lucide-react';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -17,17 +28,7 @@ const AdminBlogs = lazy(() => import('./pages/AdminBlogs'));
 const BlogList = lazy(() => import('./pages/BlogList'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
 const BehindTheScenes = lazy(() => import('./pages/BehindTheScenes'));
-import { useQuery } from '@tanstack/react-query';
-import { getStoreSettings } from './lib/api';
-import { supabase } from './lib/supabase';
-import { useCartStore } from './lib/store';
-import { Cart } from './components/Cart';
-import { AnnouncementBar } from './components/AnnouncementBar';
-import { BottomNav } from './components/BottomNav';
-import toast from 'react-hot-toast';
-import { OrderModal } from './components/OrderModal';
-import { createWhatsAppLink } from './utils/orderLinks';
-import { Search as SearchIcon, LogOut, ShoppingCart, Menu, X, Home as HomeIcon, Package, Info, Phone, MessageCircle, Instagram, Mail, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
+const AdminBehindTheScenes = lazy(() => import('./pages/AdminBehindTheScenes'));
 
 // Admin Layout
 const AdminLayout = () => {
@@ -48,6 +49,7 @@ const AdminLayout = () => {
           <Link to="/admin/products" className="px-3 py-2 hover:bg-gray-100 rounded text-gray-700 font-medium">Products</Link>
           <Link to="/admin/categories" className="px-3 py-2 hover:bg-gray-100 rounded text-gray-700 font-medium">Categories</Link>
           <Link to="/admin/blogs" className="px-3 py-2 hover:bg-gray-100 rounded text-gray-700 font-medium">Blogs</Link>
+          <Link to="/admin/behind-the-scenes" className="px-3 py-2 hover:bg-gray-100 rounded text-gray-700 font-medium">Behind the Scenes</Link>
           <Link to="/admin/settings" className="px-3 py-2 hover:bg-gray-100 rounded text-gray-700 font-medium">Settings</Link>
         </nav>
         <div className="p-4 border-t">
@@ -197,6 +199,10 @@ const PublicLayout = () => {
               <Link to="/blogs" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-3 py-3 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100">
                 <BookOpen className="w-5 h-5 text-gray-400" />
                 Blog
+              </Link>
+              <Link to="/behind-the-scenes" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-3 py-3 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100">
+                <Video className="w-5 h-5 text-gray-400" />
+                Behind the Scenes
               </Link>
               <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-3 py-3 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100">
                 <Info className="w-5 h-5 text-gray-400" />
@@ -358,6 +364,7 @@ function App() {
             <Route path="products" element={<AdminProducts />} />
             <Route path="categories" element={<AdminCategories />} />
             <Route path="blogs" element={<AdminBlogs />} />
+            <Route path="behind-the-scenes" element={<AdminBehindTheScenes />} />
           </Route>
         </Routes>
       </Suspense>
