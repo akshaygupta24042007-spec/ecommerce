@@ -50,6 +50,7 @@ async function generateSitemap() {
     { url: '/about', changefreq: 'monthly', priority: '0.5' },
     { url: '/contact', changefreq: 'monthly', priority: '0.5' },
     { url: '/faq', changefreq: 'monthly', priority: '0.5' },
+    { url: '/behind-the-scenes', changefreq: 'weekly', priority: '0.6' },
   ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
