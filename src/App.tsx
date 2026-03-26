@@ -16,6 +16,7 @@ const FAQ = lazy(() => import('./pages/FAQ'));
 const AdminBlogs = lazy(() => import('./pages/AdminBlogs'));
 const BlogList = lazy(() => import('./pages/BlogList'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
+const BehindTheScenes = lazy(() => import('./pages/BehindTheScenes'));
 import { useQuery } from '@tanstack/react-query';
 import { getStoreSettings } from './lib/api';
 import { supabase } from './lib/supabase';
@@ -341,6 +342,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/blogs" element={<BlogList />} />
             <Route path="/blogs/:slug" element={<BlogDetail />} />
+            <Route path="/behind-the-scenes" element={<BehindTheScenes />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/product/:id" element={<ProductDetail />} />
