@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
-import { Plus, Trash2, Image as ImageIcon, Film, Upload } from 'lucide-react';
+import { Plus, Trash2, Image as ImageIcon, Video, Upload } from 'lucide-react';
 import toast from 'react-hot-toast';
 import SEO from '../components/SEO';
 import { getBehindTheScenes } from '../lib/api';
@@ -151,7 +151,7 @@ export default function AdminBehindTheScenes() {
                   >
                     {file ? (
                       <div className="flex flex-col items-center">
-                        {formData.type === 'video' ? <Film className="w-8 h-8 text-blue-500" /> : <ImageIcon className="w-8 h-8 text-blue-500" />}
+                        {formData.type === 'video' ? <Video className="w-8 h-8 text-blue-500" /> : <ImageIcon className="w-8 h-8 text-blue-500" />}
                         <span className="mt-2 text-sm text-gray-900 font-medium">{file.name}</span>
                         <button 
                           type="button" 
@@ -227,7 +227,7 @@ export default function AdminBehindTheScenes() {
                   <div className="relative w-full h-full flex items-center justify-center">
                     <video src={item.url} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                      <Film className="w-10 h-10 text-white shadow-lg" />
+                      <Video className="w-10 h-10 text-white shadow-lg" />
                     </div>
                   </div>
                 ) : (

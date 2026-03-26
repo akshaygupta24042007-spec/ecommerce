@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBehindTheScenes } from '../lib/api';
 import SEO from '../components/SEO';
-import { Film } from 'lucide-react';
+import { Video } from 'lucide-react';
 
 export default function BehindTheScenes() {
   const { data: items, isLoading } = useQuery({
@@ -59,7 +59,7 @@ export default function BehindTheScenes() {
                     )}
                     {item.type === 'video' && (
                       <div className="absolute top-4 right-4 p-2 bg-black/30 backdrop-blur-md rounded-full text-white pointer-events-none">
-                        <Film className="w-5 h-5" />
+                        <Video className="w-5 h-5" />
                       </div>
                     )}
                   </div>

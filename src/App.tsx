@@ -28,7 +28,7 @@ import { BottomNav } from './components/BottomNav';
 import toast from 'react-hot-toast';
 import { OrderModal } from './components/OrderModal';
 import { createWhatsAppLink } from './utils/orderLinks';
-import { Search as SearchIcon, LogOut, ShoppingCart, Menu, X, Home as HomeIcon, Package, Info, Phone, MessageCircle, Instagram, Mail, ChevronLeft, ChevronRight, BookOpen, Film } from 'lucide-react';
+import { Search as SearchIcon, LogOut, ShoppingCart, Menu, X, Home as HomeIcon, Package, Info, Phone, MessageCircle, Instagram, Mail, ChevronLeft, ChevronRight, BookOpen, Video } from 'lucide-react';
 
 // Admin Layout
 const AdminLayout = () => {
@@ -201,7 +201,7 @@ const PublicLayout = () => {
                 Blog
               </Link>
               <Link to="/behind-the-scenes" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-3 py-3 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100">
-                <Film className="w-5 h-5 text-gray-400" />
+                <Video className="w-5 h-5 text-gray-400" />
                 Behind the Scenes
               </Link>
               <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-3 py-3 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100">
@@ -363,8 +363,8 @@ function App() {
             <Route path="settings" element={<AdminSettings />} />
             <Route path="products" element={<AdminProducts />} />
             <Route path="categories" element={<AdminCategories />} />
-            <Route path="/blogs" element={<AdminBlogs />} />
-            <Route path="/behind-the-scenes" element={<AdminBehindTheScenes />} />
+            <Route path="blogs" element={<AdminBlogs />} />
+            <Route path="behind-the-scenes" element={<AdminBehindTheScenes />} />
           </Route>
         </Routes>
       </Suspense>
