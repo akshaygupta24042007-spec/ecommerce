@@ -51,6 +51,15 @@ export interface Blog {
   created_at: string;
 }
 
+export interface BehindTheScene {
+  id: string;
+  url: string;
+  type: 'image' | 'video';
+  caption: string | null;
+  display_order: number;
+  created_at: string;
+}
+
 export interface Product {
   id: string;
   name: string;
