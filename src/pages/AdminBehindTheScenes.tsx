@@ -11,7 +11,7 @@ export default function AdminBehindTheScenes() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const { data: media, isLoading } = useQuery({
+  const { data: media, isLoading } = useQuery<BehindTheScene[]>({
     queryKey: ['admin-behind-the-scenes'],
     queryFn: getBehindTheScenes
   });
@@ -19,7 +19,7 @@ export default function AdminBehindTheScenes() {
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
       // Find the item first to get the URL
-      const itemToDelete = media?.find(m => m.id === id);
+      const itemToDelete = media?.find((m: BehindTheScene) => m.id === id);
       if (!itemToDelete) throw new Error('Item not found');
 
       // 1. Delete from Storage
@@ -61,7 +61,7 @@ export default function AdminBehindTheScenes() {
         const type = file.type.startsWith('video/') ? 'video' : 'image';
 
         // 1. Upload to Storage
-        const { data: storageData, error: storageError } = await supabase.storage
+        const { data: _storageData, error: storageError } = await supabase.storage
           .from('behind-the-scenes')
           .upload(fileName, file);
 
