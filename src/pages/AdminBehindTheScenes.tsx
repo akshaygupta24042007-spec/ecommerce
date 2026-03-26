@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
 import { getBehindTheScenes } from '../lib/api';
-import { Video, Upload, Trash2, Loader2, Plus, Image as ImageIcon, Check, X } from 'lucide-react';
+import { Video, Trash2, Loader2, Plus, Image as ImageIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { BehindTheScene } from '../lib/types';
 
