@@ -340,21 +340,29 @@ export default function Home() {
             All Products
           </button>
           {categories.map(cat => (
-            <button
-              key={cat.id}
-              onClick={() => {
-                setSelectedCategory(cat.id);
-                setCurrentPage(1); // Reset to page 1 on category change
-              }}
-              className={`px-5 py-2.5 rounded-xl whitespace-nowrap text-sm font-semibold transition-all shadow-sm ${
-                selectedCategory === cat.id 
-                  ? 'bg-gray-900 text-white shadow-md scale-[1.02]' 
-                  : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-              }`}
-            >
-              {cat.icon && <span className="mr-2">{cat.icon}</span>}
-              {cat.name}
-            </button>
+            <div key={cat.id} className="flex gap-1 flex-shrink-0">
+              <button
+                onClick={() => {
+                  setSelectedCategory(cat.id);
+                  setCurrentPage(1); // Reset to page 1 on category change
+                }}
+                className={`px-5 py-2.5 rounded-xl whitespace-nowrap text-sm font-semibold transition-all shadow-sm ${
+                  selectedCategory === cat.id 
+                    ? 'bg-gray-900 text-white shadow-md scale-[1.02]' 
+                    : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                }`}
+              >
+                {cat.icon && <span className="mr-2">{cat.icon}</span>}
+                {cat.name}
+              </button>
+              <Link
+                to={`/category/${cat.slug}`}
+                className="p-2.5 rounded-xl bg-white border border-gray-200 text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-all shadow-sm flex items-center justify-center"
+                title={`Go to ${cat.name} page`}
+              >
+                <Star className="w-4 h-4" />
+              </Link>
+            </div>
           ))}
           </motion.div>
         </div>
