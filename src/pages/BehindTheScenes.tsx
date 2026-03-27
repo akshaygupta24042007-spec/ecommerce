@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBehindTheScenes } from '../lib/api';
 import { Video } from 'lucide-react';
+import type { BehindTheScene } from '../lib/types';
 
 export default function BehindTheScenes() {
-  const { data: media, isLoading } = useQuery({
+  const { data: media, isLoading } = useQuery<BehindTheScene[]>({
     queryKey: ['behind-the-scenes'],
     queryFn: getBehindTheScenes
   });

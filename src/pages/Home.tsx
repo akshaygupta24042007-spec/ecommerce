@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { getStoreSettings, getProducts, getCategories, getBestSellers } from '../lib/api';
+import { getStoreSettings, getProducts, getCategories, getBestSellers, getBehindTheScenes } from '../lib/api';
 
 import { ProductCard } from '../components/ProductCard';
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Instagram, Star, ChevronLeft, ChevronRight, Video } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 
@@ -39,6 +39,11 @@ export default function Home() {
   const { data: bestSellers } = useQuery({
     queryKey: ['best-sellers'],
     queryFn: () => getBestSellers(4),
+  });
+
+  const { data: btsMedia } = useQuery({
+    queryKey: ['behind-the-scenes-preview'],
+    queryFn: () => getBehindTheScenes(),
   });
 
   const [currentBanner, setCurrentBanner] = useState(0);
@@ -542,6 +547,82 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Behind the Scenes Preview Section */}
+      {btsMedia && btsMedia.length > 0 && (
+        <section className="py-16 sm:py-24 bg-white overflow-hidden border-t border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row justify-between items-end mb-10 gap-4">
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="max-w-xl"
+              >
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 flex items-center gap-3">
+                  <Video className="w-8 h-8 text-blue-600" />
+                  Behind the Scenes
+                </h2>
+                <p className="mt-4 text-gray-500 font-medium text-lg leading-relaxed">
+                  A glimpse into the craftsmanship and daily life at Hiya Wear.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <Link 
+                  to="/behind-the-scenes" 
+                  className="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors group"
+                >
+                  View Full Gallery
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+              {btsMedia.slice(0, 4).map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100 shadow-sm hover:shadow-xl transition-all duration-500"
+                >
+                  {item.type === 'image' ? (
+                    <img 
+                      src={item.url} 
+                      alt={item.caption || 'Behind the scenes'} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <video 
+                      src={item.url} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      muted
+                      playsInline
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    {item.caption && (
+                      <p className="text-white text-xs sm:text-sm line-clamp-2 font-medium">{item.caption}</p>
+                    )}
+                  </div>
+                  {item.type === 'video' && (
+                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                      <Video className="w-4 h-4 text-white" />
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Why Choose Us Section */}
       <section className="bg-gray-50 py-16 sm:py-24 overflow-hidden border-t border-gray-100">
