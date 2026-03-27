@@ -51,6 +51,7 @@ export default function Search() {
         title={settings ? `${searchTitle} | ${settings.store_name}` : searchTitle} 
         description="Search for premium handmade clothing, kimonos, jackets, and more at Hiya Wear." 
         path="/search" 
+        noindex={true}
       />
       <div className="max-w-2xl mx-auto mb-10">
         <div className="relative flex items-center w-full h-14 rounded-full shadow-sm bg-white border overflow-hidden focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-400 transition-shadow">

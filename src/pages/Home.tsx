@@ -263,27 +263,32 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
               {[
-                { name: 'Kimonos', icon: '👘' },
-                { name: 'Jackets', icon: '🧥' },
-                { name: 'Vests', icon: '🎽' },
-                { name: 'Bags', icon: '👜' },
-                { name: 'Cotton Suzani', icon: '🧵' },
-                { name: 'Girls Dresses', icon: '👗' },
-                { name: 'Pajamas', icon: '🛌' },
-                { name: 'Quilt Sets', icon: '🛏️' },
-                { name: 'Skirts', icon: '👗' },
+                { name: 'Kimonos', icon: '👘', slug: 'kimonos-collection' },
+                { name: 'Jackets', icon: '🧥', slug: 'jackets-collection' },
+                { name: 'Vests', icon: '🎽', slug: 'vests-collection' },
+                { name: 'Bags', icon: '👜', slug: 'bags-collection' },
+                { name: 'Cotton Suzani', icon: '🧵', slug: 'cotton-suzani-shorts' },
+                { name: 'Girls Dresses', icon: '👗', slug: 'girls-dresses' },
+                { name: 'Pajamas', icon: '🛌', slug: 'pajamas' },
+                { name: 'Quilt Sets', icon: '🛏️', slug: 'quilt-sets' },
+                { name: 'Skirts', icon: '👗', slug: 'skirts' },
               ].map((item, index) => (
-                <motion.div 
+                <Link
                   key={item.name}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-white hover:shadow-lg hover:border-blue-100 transition-all group"
+                  to={`/category/${item.slug}`}
+                  className="block"
                 >
-                  <span className="text-2xl group-hover:scale-110 transition-transform">{item.icon}</span>
-                  <span className="font-bold text-gray-700">{item.name}</span>
-                </motion.div>
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                    className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-white hover:shadow-lg hover:border-blue-100 transition-all group"
+                  >
+                    <span className="text-2xl group-hover:scale-110 transition-transform">{item.icon}</span>
+                    <span className="font-bold text-gray-700">{item.name}</span>
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </motion.div>

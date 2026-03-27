@@ -44,12 +44,25 @@ async function generateSitemap() {
 
   console.log(`Found ${blogs?.length || 0} blogs.`);
 
+  console.log('Fetching categories from Supabase...');
+  const { data: categories, error: catsError } = await supabase
+    .from('categories')
+    .select('slug');
+
+  if (catsError) {
+    console.error('Error fetching categories:', catsError);
+    process.exit(1);
+  }
+
+  console.log(`Found ${categories?.length || 0} categories.`);
+
   const staticPages = [
     { url: '/', changefreq: 'daily', priority: '1.0' },
     { url: '/search', changefreq: 'daily', priority: '0.8' },
     { url: '/about', changefreq: 'monthly', priority: '0.5' },
     { url: '/contact', changefreq: 'monthly', priority: '0.5' },
     { url: '/faq', changefreq: 'monthly', priority: '0.5' },
+    { url: '/blogs', changefreq: 'weekly', priority: '0.7' },
     { url: '/behind-the-scenes', changefreq: 'weekly', priority: '0.6' },
   ];
 
@@ -73,6 +86,12 @@ async function generateSitemap() {
     <loc>${SITE_URL}/blogs/${blog.slug}</loc>
     <lastmod>${new Date(blog.created_at).toISOString().split('T')[0]}</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join('')}
+  ${(categories || []).map(cat => `
+  <url>
+    <loc>${SITE_URL}/category/${cat.slug}</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`).join('')}
 </urlset>`;
