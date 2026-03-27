@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getBehindTheScenes } from '../lib/api';
 import { Video } from 'lucide-react';
 import type { BehindTheScene } from '../lib/types';
+import SEO from '../components/SEO';
 
 export default function BehindTheScenes() {
   const { data: media, isLoading } = useQuery<BehindTheScene[]>({
@@ -19,6 +20,11 @@ export default function BehindTheScenes() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <SEO 
+        title="Behind the Scenes | Craftsmanship Gallery" 
+        description="A glimpse into the craftsmanship and daily life at Hiya Wear. See how our premium handmade clothing is created."
+        path="/behind-the-scenes"
+      />
       <div className="text-center mb-12">
         <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-2">
           <Video className="w-8 h-8 text-blue-600" />
