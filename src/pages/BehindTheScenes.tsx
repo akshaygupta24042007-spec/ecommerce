@@ -44,29 +44,32 @@ export default function BehindTheScenes() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {media.map((item) => (
             <div key={item.id} className="group bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 border border-gray-100">
-              <div className="aspect-[4/5] relative bg-gray-100 overflow-hidden">
-                {item.type === 'image' ? (
+              {item.type === 'image' ? (
+                <div className="aspect-[4/5] relative bg-gray-100 overflow-hidden">
                   <img 
                     src={item.url} 
                     alt={item.caption || 'Behind the scenes'} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    {item.caption && (
+                      <p className="text-white text-sm line-clamp-2">{item.caption}</p>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-black">
                   <video 
                     src={item.url}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full"
                     controls
                     playsInline
                     preload="metadata"
+                    style={{ maxHeight: '500px' }}
                   />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  {item.caption && (
-                    <p className="text-white text-sm line-clamp-2">{item.caption}</p>
-                  )}
                 </div>
-              </div>
+              )}
               {item.caption && (
                 <div className="p-4 border-t border-gray-50">
                   <p className="text-gray-700 text-sm line-clamp-2 font-medium leading-relaxed">{item.caption}</p>
