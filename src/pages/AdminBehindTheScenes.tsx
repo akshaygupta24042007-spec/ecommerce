@@ -265,14 +265,25 @@ export default function AdminBehindTheScenes() {
             
             {/* Controls */}
             <div className="p-3 space-y-3">
-              {/* Caption input */}
-              <input 
-                type="text"
-                defaultValue={item.caption || ''}
-                placeholder="Add a caption..."
-                onBlur={(e) => updateCaption(item.id, e.target.value)}
-                className="w-full text-xs bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2 italic text-gray-600"
-              />
+              {/* Caption input with Save button */}
+              <div className="flex gap-1.5">
+                <input 
+                  type="text"
+                  id={`caption-${item.id}`}
+                  defaultValue={item.caption || ''}
+                  placeholder="Add a caption..."
+                  className="flex-1 text-xs bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2 italic text-gray-600"
+                />
+                <button
+                  onClick={() => {
+                    const input = document.getElementById(`caption-${item.id}`) as HTMLInputElement;
+                    if (input) updateCaption(item.id, input.value);
+                  }}
+                  className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold transition-colors whitespace-nowrap"
+                >
+                  Save
+                </button>
+              </div>
 
               {/* Action Buttons */}
               <div className="flex gap-2">
