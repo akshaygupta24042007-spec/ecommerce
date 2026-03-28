@@ -224,11 +224,11 @@ export default function AdminBehindTheScenes() {
       </div>
 
       {/* Media Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {media?.map((item) => (
           <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
             {/* Media Preview */}
-            <div className="aspect-[4/5] relative bg-gray-50 flex items-center justify-center">
+            <div className="aspect-[4/5] relative bg-gray-50 flex items-center justify-center overflow-hidden">
               {item.type === 'image' ? (
                 <img src={item.url} alt={item.caption || ''} className="w-full h-full object-cover" />
               ) : (
@@ -264,32 +264,32 @@ export default function AdminBehindTheScenes() {
             </div>
             
             {/* Controls */}
-            <div className="p-3 space-y-3">
-              {/* Caption input with Save button */}
-              <div className="flex gap-1.5">
-                <input 
-                  type="text"
-                  id={`caption-${item.id}`}
-                  defaultValue={item.caption || ''}
-                  placeholder="Add a caption..."
-                  className="flex-1 text-xs bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2 italic text-gray-600"
-                />
+            <div className="p-3 space-y-2">
+              {/* Caption input */}
+              <input 
+                type="text"
+                id={`caption-${item.id}`}
+                defaultValue={item.caption || ''}
+                placeholder="Add a caption..."
+                className="w-full text-xs bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2 italic text-gray-600"
+              />
+
+              {/* Action Buttons - all in one row */}
+              <div className="flex gap-2">
+                {/* Save Caption Button */}
                 <button
                   onClick={() => {
                     const input = document.getElementById(`caption-${item.id}`) as HTMLInputElement;
                     if (input) updateCaption(item.id, input.value);
                   }}
-                  className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold transition-colors whitespace-nowrap"
+                  className="flex-1 flex items-center justify-center gap-1 px-2 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold transition-colors"
                 >
                   Save
                 </button>
-              </div>
 
-              {/* Action Buttons */}
-              <div className="flex gap-2">
                 {/* Replace Button */}
-                <label className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-lg text-xs font-semibold cursor-pointer transition-colors border border-amber-200">
-                  <RefreshCw className="w-3.5 h-3.5" />
+                <label className="flex-1 flex items-center justify-center gap-1 px-2 py-2 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-lg text-xs font-semibold cursor-pointer transition-colors border border-amber-200">
+                  <RefreshCw className="w-3 h-3" />
                   Replace
                   <input
                     ref={replaceInputRef}
@@ -304,9 +304,9 @@ export default function AdminBehindTheScenes() {
                 <button
                   onClick={() => setDeleteConfirmId(item.id)}
                   disabled={deleteMutation.isPending}
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg text-xs font-semibold transition-colors border border-red-200"
+                  className="flex-1 flex items-center justify-center gap-1 px-2 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg text-xs font-semibold transition-colors border border-red-200"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  <Trash2 className="w-3 h-3" />
                   Delete
                 </button>
               </div>
