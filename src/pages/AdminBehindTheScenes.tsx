@@ -63,7 +63,11 @@ export default function AdminBehindTheScenes() {
         // 1. Upload to Storage
         const { data: _storageData, error: storageError } = await supabase.storage
           .from('behind-the-scenes')
-          .upload(fileName, file);
+          .upload(fileName, file, {
+            contentType: file.type,
+            cacheControl: '3600',
+            upsert: false
+          });
 
         if (storageError) throw storageError;
 
@@ -165,7 +169,17 @@ export default function AdminBehindTheScenes() {
               {item.type === 'image' ? (
                 <img src={item.url} alt="" className="w-full h-full object-cover" />
               ) : (
-                <video src={item.url} className="w-full h-full object-cover" />
+                <video 
+                  className="w-full h-full object-cover"
+                  controls
+                  playsInline
+                  muted
+                  preload="metadata"
+                  crossOrigin="anonymous"
+                >
+                  <source src={item.url} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               )}
               
               <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
