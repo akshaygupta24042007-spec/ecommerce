@@ -47,7 +47,22 @@ export async function getStoreSettings(): Promise<StoreSettings> {
 }
 
 export async function getProducts(categoryId?: string, searchQuery?: string, page = 1, pageSize = 12, categorySlug?: string): Promise<{ products: Product[], count: number }> {
-  const categoryInner = (categoryId || categorySlug) ? '!inner' : '';
+  // If we have a slug, resolve it to a category ID first
+  let resolvedCategoryId = categoryId;
+  if (categorySlug && !resolvedCategoryId) {
+    const { data: cat } = await supabase
+      .from('categories')
+      .select('id')
+      .eq('slug', categorySlug)
+      .single();
+    
+    if (!cat) {
+      return { products: [], count: 0 };
+    }
+    resolvedCategoryId = cat.id;
+  }
+
+  const categoryInner = resolvedCategoryId ? '!inner' : '';
   let query = supabase
     .from('products')
     .select(`
@@ -59,12 +74,8 @@ export async function getProducts(categoryId?: string, searchQuery?: string, pag
     `, { count: 'exact' })
     .eq('status', 'published');
 
-  if (categoryId) {
-    query = query.eq('product_categories.category_id', categoryId);
-  }
-
-  if (categorySlug) {
-    query = query.eq('product_categories.categories.slug', categorySlug);
+  if (resolvedCategoryId) {
+    query = query.eq('product_categories.category_id', resolvedCategoryId);
   }
 
   if (searchQuery) {
