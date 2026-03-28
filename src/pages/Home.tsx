@@ -50,9 +50,6 @@ export default function Home() {
   const [direction, setDirection] = useState(0);
   const banners = [
     '/new-hero-banner-8.jpg',
-    '/new-hero-banner-7.png',
-    '/new-hero-banner-6.png',
-    '/new-hero-banner-5.png',
     '/new-hero-banner-4.jpg',
     '/new-hero-banner-2.jpg',
     '/new-hero-banner-1.jpg'
