@@ -233,16 +233,12 @@ export default function AdminBehindTheScenes() {
                 <img src={item.url} alt={item.caption || ''} className="w-full h-full object-cover" />
               ) : (
                 <video 
+                  src={item.url}
                   className="w-full h-full object-cover"
                   controls
                   playsInline
-                  muted
                   preload="metadata"
-                  crossOrigin="anonymous"
-                >
-                  <source src={item.url} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                />
               )}
 
               {/* Replacing overlay */}

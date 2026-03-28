@@ -54,16 +54,12 @@ export default function BehindTheScenes() {
                   />
                 ) : (
                   <video 
+                    src={item.url}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     controls
                     playsInline
-                    muted
                     preload="metadata"
-                    crossOrigin="anonymous"
-                  >
-                    <source src={item.url} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
+                  />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                   {item.caption && (
