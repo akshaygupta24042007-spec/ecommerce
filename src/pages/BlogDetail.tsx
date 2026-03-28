@@ -50,7 +50,20 @@ export default function BlogDetail() {
       <SEO 
         title={settings ? `${blog.meta_title || blog.title} | ${settings.store_name}` : blog.meta_title || blog.title} 
         description={blog.meta_description || "Read our latest article."} 
-        path={`/blogs/${slug}`} 
+        path={`/blogs/${slug}`}
+        image={blog.image || undefined}
+        article={{
+          title: blog.meta_title || blog.title,
+          description: blog.meta_description || "Read our latest article.",
+          image: blog.image || undefined,
+          datePublished: blog.created_at,
+          url: `https://www.hiyawear.com/blogs/${slug}`
+        }}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.hiyawear.com' },
+          { name: 'Blog', url: 'https://www.hiyawear.com/blogs' },
+          { name: blog.title, url: `https://www.hiyawear.com/blogs/${slug}` }
+        ]}
       />
       {/* Hero Image Section if exists */}
       {blog.image && (

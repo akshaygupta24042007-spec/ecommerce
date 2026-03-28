@@ -85,7 +85,20 @@ export default function ProductDetail() {
       <SEO 
         title={settings ? `${product.name} | ${settings.store_name}` : product.name} 
         description={product.short_description || `Order ${product.name} directly from Hiya Wear.`} 
-        path={`/product/${id}`} 
+        path={`/product/${id}`}
+        image={images[0]?.url}
+        product={{
+          name: product.name,
+          description: product.short_description || `Order ${product.name} directly from Hiya Wear.`,
+          image: images[0]?.url || '',
+          availability: product.is_available,
+          url: `https://www.hiyawear.com/product/${id}`
+        }}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.hiyawear.com' },
+          { name: 'Shop', url: 'https://www.hiyawear.com/search' },
+          { name: product.name, url: `https://www.hiyawear.com/product/${id}` }
+        ]}
       />
       <Link to="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-900 mb-6">
         <ChevronLeft className="w-4 h-4 mr-1" />

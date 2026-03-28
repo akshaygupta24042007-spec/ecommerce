@@ -53,7 +53,11 @@ export default function CategoryPage() {
       <SEO 
         title={settings ? `${category.name} | ${settings.store_name}` : category.name} 
         description={`Browse our exclusive collection of ${category.name}. Premium handmade clothing and accessories at Hiya Wear.`} 
-        path={`/category/${slug}`} 
+        path={`/category/${slug}`}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.hiyawear.com' },
+          { name: category.name, url: `https://www.hiyawear.com/category/${slug}` }
+        ]}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12">
