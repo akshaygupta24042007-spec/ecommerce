@@ -1,0 +1,208 @@
+﻿
+> ecommerce@0.0.0 build
+> npm run sitemap && tsc -b && vite-react-ssg build
+
+
+> ecommerce@0.0.0 sitemap
+> node scripts/generate-sitemap.js
+
+[dotenv@17.3.1] injecting env (2) from .env -- tip: ≡ƒöÉ prevent building .env in docker: https://dotenvx.com/prebuild
+Fetching products from Supabase...
+Found 87 products.
+Fetching blogs from Supabase...
+Found 2 blogs.
+Fetching categories from Supabase...
+Found 11 categories.
+Sitemap generated successfully at C:\Users\91787\Desktop\e-commerce\ecommerce\public\sitemap.xml
+
+[vite-react-ssg] Build for client...
+[36mvite v6.4.1 [32mbuilding for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 2289 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                               [39m[1m[2m  1.87 kB[22m[1m[22m[2m Γöé gzip:   0.82 kB[22m
+[2mdist/[22m[32m.vite/manifest.json                      [39m[1m[2m  6.54 kB[22m[1m[22m[2m Γöé gzip:   0.97 kB[22m
+[2mdist/[22m[32m.vite/ssr-manifest.json                  [39m[1m[2m 43.32 kB[22m[1m[22m[2m Γöé gzip:   4.50 kB[22m
+[2mdist/[22m[35massets/app-Beqgrc7L.css                  [39m[1m[2m 60.11 kB[22m[1m[22m[2m Γöé gzip:  10.34 kB[22m
+[2mdist/[22m[36massets/image-BQrNxUi4.js                 [39m[1m[2m  0.44 kB[22m[1m[22m[2m Γöé gzip:   0.33 kB[22m
+[2mdist/[22m[36massets/square-pen-DHHCp3Oq.js            [39m[1m[2m  0.49 kB[22m[1m[22m[2m Γöé gzip:   0.34 kB[22m
+[2mdist/[22m[36massets/Contact-BKlAz6QW.js               [39m[1m[2m  2.33 kB[22m[1m[22m[2m Γöé gzip:   1.10 kB[22m
+[2mdist/[22m[36massets/About-rOoy2gop.js                 [39m[1m[2m  2.84 kB[22m[1m[22m[2m Γöé gzip:   1.35 kB[22m
+[2mdist/[22m[36massets/AdminLogin-0JMNfDeq.js            [39m[1m[2m  3.01 kB[22m[1m[22m[2m Γöé gzip:   1.26 kB[22m
+[2mdist/[22m[36massets/FAQ-t96F4iMQ.js                   [39m[1m[2m  3.05 kB[22m[1m[22m[2m Γöé gzip:   1.53 kB[22m
+[2mdist/[22m[36massets/useMutation-CF5Y5-Mz.js           [39m[1m[2m  3.10 kB[22m[1m[22m[2m Γöé gzip:   1.27 kB[22m
+[2mdist/[22m[36massets/BehindTheScenes-Bg9yfFO8.js       [39m[1m[2m  3.23 kB[22m[1m[22m[2m Γöé gzip:   1.35 kB[22m
+[2mdist/[22m[36massets/SEO-C8UQoYe2.js                   [39m[1m[2m  3.75 kB[22m[1m[22m[2m Γöé gzip:   1.57 kB[22m
+[2mdist/[22m[36massets/Search-DGtrEthv.js                [39m[1m[2m  4.07 kB[22m[1m[22m[2m Γöé gzip:   1.86 kB[22m
+[2mdist/[22m[36massets/BlogList-DaGXkwPA.js              [39m[1m[2m  4.26 kB[22m[1m[22m[2m Γöé gzip:   1.86 kB[22m
+[2mdist/[22m[36massets/CategoryPage-BVsfxh0B.js          [39m[1m[2m  4.69 kB[22m[1m[22m[2m Γöé gzip:   2.12 kB[22m
+[2mdist/[22m[36massets/ProductCard-CSC6SqIf.js           [39m[1m[2m  5.38 kB[22m[1m[22m[2m Γöé gzip:   2.16 kB[22m
+[2mdist/[22m[36massets/BlogDetail-BgMVnimO.js            [39m[1m[2m  6.69 kB[22m[1m[22m[2m Γöé gzip:   2.75 kB[22m
+[2mdist/[22m[36massets/AdminDashboard-A5fsx_yl.js        [39m[1m[2m  7.87 kB[22m[1m[22m[2m Γöé gzip:   2.70 kB[22m
+[2mdist/[22m[36massets/AdminCategories-DnFNsAw1.js       [39m[1m[2m  8.48 kB[22m[1m[22m[2m Γöé gzip:   2.97 kB[22m
+[2mdist/[22m[36massets/AdminSettings-Da55oTEV.js         [39m[1m[2m  9.03 kB[22m[1m[22m[2m Γöé gzip:   2.43 kB[22m
+[2mdist/[22m[36massets/AdminBehindTheScenes-DSOPXHLl.js  [39m[1m[2m  9.94 kB[22m[1m[22m[2m Γöé gzip:   3.24 kB[22m
+[2mdist/[22m[36massets/AdminBlogs-DmVsfq6T.js            [39m[1m[2m 11.26 kB[22m[1m[22m[2m Γöé gzip:   3.49 kB[22m
+[2mdist/[22m[36massets/AdminProducts-WaofK1XL.js         [39m[1m[2m 15.95 kB[22m[1m[22m[2m Γöé gzip:   4.60 kB[22m
+[2mdist/[22m[36massets/ProductDetail-vk-C9gXI.js         [39m[1m[2m 20.19 kB[22m[1m[22m[2m Γöé gzip:   6.92 kB[22m
+[2mdist/[22m[36massets/Home-DfbBymEA.js                  [39m[1m[2m 34.38 kB[22m[1m[22m[2m Γöé gzip:  10.49 kB[22m
+[2mdist/[22m[36massets/proxy-CPni6K-m.js                 [39m[1m[2m124.05 kB[22m[1m[22m[2m Γöé gzip:  40.54 kB[22m
+[2mdist/[22m[36massets/client-DqG0kdGu.js                [39m[1m[2m181.38 kB[22m[1m[22m[2m Γöé gzip:  57.05 kB[22m
+[2mdist/[22m[36massets/app-DZSkCO8P.js                   [39m[1m[2m402.21 kB[22m[1m[22m[2m Γöé gzip: 117.03 kB[22m
+[32mΓ£ô built in 18.80s[39m
+
+[vite-react-ssg] Build for server...
+[36mvite v6.4.1 [32mbuilding SSR bundle for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 31 modules transformed.
+rendering chunks...
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[32m.vite/manifest.json                      [39m[1m[2m 5.32 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[35massets/style-Beqgrc7L.css                [39m[1m[2m60.11 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/FAQ-Cb6k7CJO.js                   [39m[1m[2m 3.71 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/Contact-D3ZK6uny.js               [39m[1m[2m 3.91 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/About-TbM19KQu.js                 [39m[1m[2m 4.01 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/AdminLogin-CJLh5D_d.js            [39m[1m[2m 4.08 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/BehindTheScenes-Dbmz6bqm.js       [39m[1m[2m 4.86 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/BlogList-BwuVg6Yf.js              [39m[1m[2m 6.26 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/SEO-Eyg7Ju-d.js                   [39m[1m[2m 7.39 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/CategoryPage-CD9oKSos.js          [39m[1m[2m 7.57 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/Search-Djyo68Yu.js                [39m[1m[2m 7.66 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/ProductCard-DEn6zKTb.js           [39m[1m[2m 8.67 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/BlogDetail-DBKsCamU.js            [39m[1m[2m10.62 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/AdminDashboard-BjzS7RUh.js        [39m[1m[2m12.11 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/AdminCategories-B6rIlX7y.js       [39m[1m[2m12.72 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/AdminSettings-OOmpUMdW.js         [39m[1m[2m13.30 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/AdminBehindTheScenes-wAMbRcVw.js  [39m[1m[2m14.28 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/AdminBlogs-D3iOzh7J.js            [39m[1m[2m19.77 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/AdminProducts-Dy94UL4h.js         [39m[1m[2m28.02 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/ProductDetail-Xt6ujUUA.js         [39m[1m[2m30.76 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36massets/Home-CXEq36fb.js                  [39m[1m[2m46.04 kB[22m[1m[22m
+[2m.vite-react-ssg-temp/c3ac9woor3/[22m[36mmain.mjs                                 [39m[1m[2m62.16 kB[22m[1m[22m
+[32mΓ£ô built in 5.49s[39m
+node.exe : GoTrueClient
+@sb-xwwlnsuklhhvgwkpvyf
+l-auth-token:1 
+(2.100.0) 2026-03-29T20
+:35:02.999Z Multiple 
+GoTrueClient instances 
+detected in the same 
+browser context. It is 
+not an error, but this 
+should be avoided as 
+it may produce 
+undefined behavior 
+when used concurrently 
+under the same storage 
+key.
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (GoTrueClient@   
+ sb...me storage ke    
+y.:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+GoTrueClient@sb-xwwlnsu
+klhhvgwkpvyfl-auth-toke
+n:2 (2.100.0) 2026-03-2
+9T20:35:03.935Z 
+Multiple GoTrueClient 
+instances detected in 
+the same browser 
+context. It is not an 
+error, but this should 
+be avoided as it may 
+produce undefined 
+behavior when used 
+concurrently under the 
+same storage key.
+GoTrueClient@sb-xwwlnsu
+klhhvgwkpvyfl-auth-toke
+n:3 (2.100.0) 2026-03-2
+9T20:35:04.323Z 
+Multiple GoTrueClient 
+instances detected in 
+the same browser 
+context. It is not an 
+error, but this should 
+be avoided as it may 
+produce undefined 
+behavior when used 
+concurrently under the 
+same storage key.
+
+[vite-react-ssg] Rendering Pages... (115)
+dist/faq\index.html   16.11 KiB
+dist/search\index.html  13.71 KiB
+file:///C:/Users/91787/
+Desktop/e-commerce/ecom
+merce/node_modules/vite
+-react-ssg/dist/shared/
+vite-react-ssg.DUkzxBEb
+.mjs:930
+        throw new 
+Error(
+              ^
+
+Error: 
+[vite-react-ssg] Error 
+on page: product/velvet
+-suzani-jacket-handmade
+-embroidered-boho-coat
+TypeError: item.route.C
+omponent._payload._resu
+lt.toString is not a 
+function
+    at file:///C:/Users
+/91787/Desktop/e-commer
+ce/ecommerce/node_modul
+es/vite-react-ssg/dist/
+shared/vite-react-ssg.D
+UkzxBEb.mjs:36:56
+    at Array.forEach 
+(<anonymous>)
+    at collectAssets (f
+ile:///C:/Users/91787/D
+esktop/e-commerce/ecomm
+erce/node_modules/vite-
+react-ssg/dist/shared/v
+ite-react-ssg.DUkzxBEb.
+mjs:30:12)
+    at async file:///C:
+/Users/91787/Desktop/e-
+commerce/ecommerce/node
+_modules/vite-react-ssg
+/dist/shared/vite-react
+-ssg.DUkzxBEb.mjs:865:5
+7
+    at async file:///C:
+/Users/91787/Desktop/e-
+commerce/ecommerce/node
+_modules/p-queue/dist/i
+ndex.js:394:36
+    at file:///C:/Users
+/91787/Desktop/e-commer
+ce/ecommerce/node_modul
+es/vite-react-ssg/dist/
+shared/vite-react-ssg.D
+UkzxBEb.mjs:930:15
+    at async file:///C:
+/Users/91787/Desktop/e-
+commerce/ecommerce/node
+_modules/p-queue/dist/i
+ndex.js:394:36
+
+Node.js v24.14.0

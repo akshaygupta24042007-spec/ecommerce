@@ -1,24 +1,8 @@
-import { useState, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, Outlet, Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import type { RouteRecord } from 'vite-react-ssg';
+import { createClient } from '@supabase/supabase-js';
 
-// Lazy load pages for better performance
-const Home = lazy(() => import('./pages/Home'));
-const ProductDetail = lazy(() => import('./pages/ProductDetail'));
-const Search = lazy(() => import('./pages/Search'));
-const AdminLogin = lazy(() => import('./pages/AdminLogin'));
-const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
-const AdminSettings = lazy(() => import('./pages/AdminSettings'));
-const AdminProducts = lazy(() => import('./pages/AdminProducts'));
-const AdminCategories = lazy(() => import('./pages/AdminCategories'));
-const About = lazy(() => import('./pages/About'));
-const Contact = lazy(() => import('./pages/Contact'));
-const FAQ = lazy(() => import('./pages/FAQ'));
-const AdminBlogs = lazy(() => import('./pages/AdminBlogs'));
-const BlogList = lazy(() => import('./pages/BlogList'));
-const BlogDetail = lazy(() => import('./pages/BlogDetail'));
-const BehindTheScenes = lazy(() => import('./pages/BehindTheScenes'));
-const AdminBehindTheScenes = lazy(() => import('./pages/AdminBehindTheScenes'));
-const CategoryPage = lazy(() => import('./pages/CategoryPage'));
 import { useQuery } from '@tanstack/react-query';
 import { getStoreSettings } from './lib/api';
 import { supabase } from './lib/supabase';
@@ -30,6 +14,26 @@ import toast from 'react-hot-toast';
 import { OrderModal } from './components/OrderModal';
 import { createWhatsAppLink } from './utils/orderLinks';
 import { Search as SearchIcon, LogOut, ShoppingCart, Menu, X, Home as HomeIcon, Package, Info, Phone, MessageCircle, Instagram, Mail, ChevronLeft, ChevronRight, BookOpen, Video } from 'lucide-react';
+
+// Import pages statically for SSG
+import Home from './pages/Home';
+import ProductDetail from './pages/ProductDetail';
+import Search from './pages/Search';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminSettings from './pages/AdminSettings';
+import AdminProducts from './pages/AdminProducts';
+import AdminCategories from './pages/AdminCategories';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
+import AdminBlogs from './pages/AdminBlogs';
+import BlogList from './pages/BlogList';
+import BlogDetail from './pages/BlogDetail';
+import BehindTheScenes from './pages/BehindTheScenes';
+import AdminBehindTheScenes from './pages/AdminBehindTheScenes';
+import CategoryPage from './pages/CategoryPage';
+import { productLoader } from './pages/ProductDetail';
 
 // Admin Layout
 const AdminLayout = () => {
@@ -338,43 +342,156 @@ const PublicLayout = () => {
   );
 };
 
-function App() {
-  return (
-    <Router>
-      <Suspense fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-400">
-           <div className="animate-spin rounded-full h-10 w-10 border-2 border-current border-t-transparent"></div>
-        </div>
-      }>
-        <Routes>
-          {/* Public Routes */}
-          <Route element={<PublicLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/blogs" element={<BlogList />} />
-            <Route path="/blogs/:slug" element={<BlogDetail />} />
-            <Route path="/category/:slug" element={<CategoryPage />} />
-            <Route path="/behind-the-scenes" element={<BehindTheScenes />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-          </Route>
-
-          {/* Admin Routes */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="settings" element={<AdminSettings />} />
-            <Route path="products" element={<AdminProducts />} />
-            <Route path="categories" element={<AdminCategories />} />
-            <Route path="blogs" element={<AdminBlogs />} />
-            <Route path="behind-the-scenes" element={<AdminBehindTheScenes />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </Router>
-  );
+// Helper to fetch slugs from Supabase at build time
+async function getSupabaseSlugs(table: string, slugField: string = 'slug', filter?: { column: string; value: string }) {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn(`Missing Supabase env vars, skipping ${table} path generation`);
+    return [];
+  }
+  
+  const client = createClient(supabaseUrl, supabaseAnonKey);
+  let query = client.from(table).select(slugField);
+  
+  if (filter) {
+    query = query.eq(filter.column, filter.value);
+  }
+  
+  const { data, error } = await query;
+  
+  if (error) {
+    console.error(`Error fetching ${table} slugs:`, error);
+    return [];
+  }
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (data as any[] || []).map((item) => item[slugField] as string);
 }
 
-export default App;
+import { HelmetProvider } from 'react-helmet-async';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from 'react-hot-toast';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+const RootProviders = () => (
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <Outlet />
+      <Toaster position="bottom-right" />
+    </QueryClientProvider>
+  </HelmetProvider>
+);
+
+// Route definitions as data route objects for SSG
+export const routes: RouteRecord[] = [
+  {
+    element: <RootProviders />,
+    children: [
+      // Public Routes
+      {
+        path: '/',
+    Component: PublicLayout,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: 'search',
+        Component: Search,
+      },
+      {
+        path: 'about',
+        Component: About,
+      },
+      {
+        path: 'blogs',
+        Component: BlogList,
+      },
+      {
+        path: 'blogs/:slug',
+        Component: BlogDetail,
+        getStaticPaths: async () => {
+          const slugs = await getSupabaseSlugs('blogs');
+          return slugs.map((slug: string) => `blogs/${slug}`);
+        },
+      },
+      {
+        path: 'category/:slug',
+        Component: CategoryPage,
+        getStaticPaths: async () => {
+          const slugs = await getSupabaseSlugs('categories');
+          return slugs.map((slug: string) => `category/${slug}`);
+        },
+      },
+      {
+        path: 'behind-the-scenes',
+        Component: BehindTheScenes,
+      },
+      {
+        path: 'contact',
+        Component: Contact,
+      },
+      {
+        path: 'faq',
+        Component: FAQ,
+      },
+      {
+        path: 'product/:id',
+        Component: ProductDetail,
+        loader: productLoader,
+        getStaticPaths: async () => {
+          const slugs = await getSupabaseSlugs('products', 'slug', { column: 'status', value: 'published' });
+          return slugs.map((slug: string) => `product/${slug}`);
+        },
+      },
+    ],
+  },
+  // Admin Routes (not pre-rendered)
+  {
+    path: '/admin/login',
+    Component: AdminLogin,
+  },
+  {
+    path: '/admin',
+    Component: AdminLayout,
+    children: [
+      {
+        path: 'dashboard',
+        Component: AdminDashboard,
+      },
+      {
+        path: 'settings',
+        Component: AdminSettings,
+      },
+      {
+        path: 'products',
+        Component: AdminProducts,
+      },
+      {
+        path: 'categories',
+        Component: AdminCategories,
+      },
+      {
+        path: 'blogs',
+        Component: AdminBlogs,
+      },
+      {
+        path: 'behind-the-scenes',
+        Component: AdminBehindTheScenes,
+      },
+    ],
+  },
+  ]
+  }
+];

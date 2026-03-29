@@ -17,4 +17,10 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1000,
   },
+  // @ts-expect-error ssgOptions is recognized by vite-react-ssg plugin, not Vite's built-in types
+  ssgOptions: {
+    mock: true,
+    dirStyle: 'nested',
+    entry: 'src/main.tsx',
+  },
 })

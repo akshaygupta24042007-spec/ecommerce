@@ -10,8 +10,9 @@ export function ProductCard({ product, settings }: { product: Product, settings?
     || 'https://via.placeholder.com/300?text=No+Image';
 
 
-  const questionMessage = `I want to know more about this product: ${product.name}\n${window.location.origin}/product/${product.slug || product.id}`;
-  const priceMessage = `Hello, I'm interested in the price of ${product.name}.\nCan you please share the details?\nLink: ${window.location.origin}/product/${product.slug || product.id}`;
+  const siteUrl = typeof window !== 'undefined' && window.location?.origin ? window.location.origin : 'https://www.hiyawear.com';
+  const questionMessage = `I want to know more about this product: ${product.name}\n${siteUrl}/product/${product.slug || product.id}`;
+  const priceMessage = `Hello, I'm interested in the price of ${product.name}.\nCan you please share the details?\nLink: ${siteUrl}/product/${product.slug || product.id}`;
 
   return (
     <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 group">

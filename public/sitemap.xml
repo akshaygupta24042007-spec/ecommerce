@@ -29,61 +29,14 @@
   <url>
     <loc>https://www.hiyawear.com/blogs</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.hiyawear.com/behind-the-scenes</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-
-  <!-- Category Pages -->
-  <url>
-    <loc>https://www.hiyawear.com/category/kimonos-collection</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.hiyawear.com/category/jackets-collection</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.hiyawear.com/category/vests-collection</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.hiyawear.com/category/bags-collection</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.hiyawear.com/category/cotton-suzani-shorts</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.hiyawear.com/category/girls-dresses</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.hiyawear.com/category/pajamas</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.hiyawear.com/category/quilt-sets</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.hiyawear.com/category/skirts</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
+  
   <url>
     <loc>https://www.hiyawear.com/product/velvet-suzani-jacket-for-women-handcrafted-boho-embroidered-coat</loc>
     <lastmod>2026-03-19</lastmod>
@@ -111,6 +64,24 @@
   <url>
     <loc>https://www.hiyawear.com/product/handmade-velvet-suzani-jacket-embroidered-bohemian-coat</loc>
     <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/cotton-makeup-pouch-set-travel-cosmetic-organizer-3-piece-set</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/handmade-cotton-tote-bag-stylish-everyday-carry-bag</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/printed-cotton-tote-bag-trendy-reusable-carry-bag</loc>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -177,6 +148,12 @@
   <url>
     <loc>https://www.hiyawear.com/product/luxury-velvet-suzani-jacket-for-women-vintage-inspired-embroidery</loc>
     <lastmod>2026-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/handmade-cotton-cosmetic-bag-set-boho-travel-pouches-set-of-3</loc>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -271,6 +248,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.hiyawear.com/product/canvas-tote-bag-reusable-eco-friendly-shopping-bag</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.hiyawear.com/product/vintage-style-velvet-suzani-jacket-handmade-bohemian-fashion</loc>
     <lastmod>2026-03-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -279,6 +262,12 @@
   <url>
     <loc>https://www.hiyawear.com/product/women-s-velvet-suzani-jacket-vintage-embroidered-statement-coat</loc>
     <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/cotton-makeup-bag-set-eco-friendly-travel-pouches-3-pieces</loc>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -361,6 +350,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.hiyawear.com/product/artisan-velvet-suzani-vest-handmade-ethnic-embroidered-waistcoat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.hiyawear.com/product/premium-velvet-suzani-jacket-vintage-embroidered-boho-coat</loc>
     <lastmod>2026-03-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -397,8 +392,32 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.hiyawear.com/product/unique-velvet-suzani-vest-handmade-bohemian-embroidered-waistcoat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/cotton-tote-bag-eco-friendly-reusable-shopping-bag</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/cotton-tote-bag-for-women-stylish-shoulder-bag</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.hiyawear.com/product/cotton-suzani-jacket-colorful-handcrafted-ethnic-jacket</loc>
     <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/velvet-suzani-embroidered-jacket-artisan-bohemian-outerwear</loc>
+    <lastmod>2026-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -408,11 +427,205 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/women-s-velvet-suzani-jacket-handcrafted-ethnic-coat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/boho-velvet-suzani-jacket-handmade-vintage-coat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/handmade-velvet-suzani-jacket-luxury-embroidered-boho-coat-for-women</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/luxury-velvet-suzani-jacket-hand-embroidered-designer-coat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/handmade-velvet-suzani-vest-embroidered-boho-waistcoat-for-women</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/velvet-suzani-embroidered-vest-artisan-bohemian-waistcoat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/women-s-velvet-suzani-vest-handcrafted-ethnic-embroidered-waistcoat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/boho-velvet-suzani-vest-handmade-vintage-embroidered-waistcoat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/luxury-velvet-suzani-vest-hand-embroidered-designer-waistcoat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/handmade-suzani-velvet-vest-unique-boho-embroidered-waistcoat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/vintage-velvet-suzani-vest-handcrafted-embroidered-boho-waistcoat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/velvet-suzani-vest-for-women-boho-chic-embroidered-waistcoat</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/premium-velvet-suzani-vest-handmade-embroidered-boho-waistcoat-for-women</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/eco-friendly-cotton-makeup-pouch-set-reusable-cosmetic-bags-3-pack</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/cotton-makeup-pouch-set-eco-friendly-cosmetic-bags-set-of-3</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/handmade-cotton-makeup-bag-set-stylish-cosmetic-pouches-3-pieces</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/cotton-cosmetic-pouch-set-travel-makeup-organizer-set-of-3</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/cotton-zipper-makeup-pouch-set-travel-cosmetic-bags-3-pieces</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/small-cotton-makeup-pouch-set-compact-cosmetic-bags-set-of-3</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/cotton-toiletry-makeup-bag-set-multi-purpose-pouches-3-pieces</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/quilted-cotton-makeup-pouch-set-soft-cosmetic-bags-set-of-3</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/product/cotton-makeup-pouch-set-for-women-elegant-cosmetic-bags-3-pieces</loc>
+    <lastmod>2026-03-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
   
   <url>
     <loc>https://www.hiyawear.com/blogs/indian-cotton-garments-global-demand</loc>
     <lastmod>2026-03-21</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/blogs/how-to-choose-high-quality-cotton-fabric-a-complete-buyer-s-guide</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.hiyawear.com/category/kimonos-collection</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/jackets-collection</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/vests-collection</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/bags-collection</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/cotton-suzani-shorts</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/girls-dresses</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/quilt-sets</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/skirts</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/velvet-printed-jacket</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/velvet-quilted-jacket</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/pajamas</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>

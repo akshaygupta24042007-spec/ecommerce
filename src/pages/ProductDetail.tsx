@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLoaderData } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getProduct, getStoreSettings, getRelatedProducts } from '../lib/api';
 import { useCartStore } from '../lib/store';
@@ -9,20 +9,29 @@ import { SizeGuideModal } from '../components/SizeGuideModal';
 import { createWhatsAppLink } from '../utils/orderLinks';
 import toast from 'react-hot-toast';
 import SEO from '../components/SEO';
+import type { Product } from '../lib/types';
+
+export async function productLoader({ params }: any) {
+  if (!params.id) return null;
+  const product = await getProduct(params.id);
+  return product || null;
+}
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
+  const initialProduct = useLoaderData() as Product | null;
+  
   const [selectedVariant, setSelectedVariant] = useState<string | null>(null);
   const [currentImageIdx, setCurrentImageIdx] = useState(0);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   const [quantity, setQuantity] = useState<number | string>(1);
   const { items, addItem } = useCartStore();
 
-
   const { data: product, isLoading: isLoadingProduct } = useQuery({
     queryKey: ['product', id],
     queryFn: () => getProduct(id!),
     enabled: !!id,
+    initialData: initialProduct || undefined,
   });
 
   const { data: settings } = useQuery({
