@@ -22,6 +22,7 @@ export interface Category {
   slug: string;
   icon: string | null;
   display_order: number;
+  parent_id?: string | null;
 }
 
 export interface ProductImage {

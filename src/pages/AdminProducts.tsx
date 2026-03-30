@@ -431,7 +431,7 @@ export default function AdminProducts() {
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
                       />
                       <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
-                        {cat.name}
+                        {cat.parent_id ? `${categories?.find(c => c.id === cat.parent_id)?.name} > ` : ''}{cat.name}
                       </span>
                     </label>
                   ))}

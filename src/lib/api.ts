@@ -62,7 +62,20 @@ export async function getProducts(categoryId?: string, searchQuery?: string, pag
     resolvedCategoryId = cat.id;
   }
 
-  const categoryInner = resolvedCategoryId ? '!inner' : '';
+  // Get current category AND its subcategories
+  let categoryIdsToSearch: string[] = [];
+  if (resolvedCategoryId) {
+    categoryIdsToSearch.push(resolvedCategoryId);
+    const { data: subcats } = await supabase
+      .from('categories')
+      .select('id')
+      .eq('parent_id', resolvedCategoryId);
+    if (subcats && subcats.length > 0) {
+      categoryIdsToSearch.push(...subcats.map(c => c.id));
+    }
+  }
+
+  const categoryInner = categoryIdsToSearch.length > 0 ? '!inner' : '';
   let query = supabase
     .from('products')
     .select(`
@@ -74,8 +87,8 @@ export async function getProducts(categoryId?: string, searchQuery?: string, pag
     `, { count: 'exact' })
     .eq('status', 'published');
 
-  if (resolvedCategoryId) {
-    query = query.eq('product_categories.category_id', resolvedCategoryId);
+  if (categoryIdsToSearch.length > 0) {
+    query = query.in('product_categories.category_id', categoryIdsToSearch);
   }
 
   if (searchQuery) {

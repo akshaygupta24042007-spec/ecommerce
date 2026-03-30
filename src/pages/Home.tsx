@@ -336,7 +336,7 @@ export default function Home() {
           >
             All Products
           </button>
-          {categories.map(cat => (
+          {categories.filter(c => !c.parent_id).map(cat => (
             <div key={cat.id} className="flex gap-1 flex-shrink-0">
               <button
                 onClick={() => {

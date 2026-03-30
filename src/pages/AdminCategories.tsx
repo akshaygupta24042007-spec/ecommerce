@@ -15,6 +15,8 @@ export default function AdminCategories() {
   const [editName, setEditName] = useState('');
   const [editIcon, setEditIcon] = useState('');
   const [editSlug, setEditSlug] = useState('');
+  const [newParentId, setNewParentId] = useState('');
+  const [editParentId, setEditParentId] = useState('');
 
   const { data: categories, isLoading } = useQuery({
     queryKey: ['admin-categories'],
@@ -37,6 +39,7 @@ export default function AdminCategories() {
         slug: slug, // This is already being generated above, but we ensure it's used
         icon: newIcon.trim() || null,
         display_order: maxOrder + 1,
+        parent_id: newParentId || null,
       });
       if (error) throw error;
     },
@@ -45,6 +48,7 @@ export default function AdminCategories() {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       setNewName('');
       setNewIcon('');
+      setNewParentId('');
       setIsAdding(false);
       toast.success('Category created');
     },
@@ -58,7 +62,8 @@ export default function AdminCategories() {
         .update({ 
           name: editName.trim(), 
           icon: editIcon.trim() || null,
-          slug: editSlug.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || null
+          slug: editSlug.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || null,
+          parent_id: editParentId || null
         })
         .eq('id', id);
       if (error) throw error;
@@ -90,6 +95,7 @@ export default function AdminCategories() {
     setEditName(cat.name);
     setEditIcon(cat.icon || '');
     setEditSlug(cat.slug || '');
+    setEditParentId(cat.parent_id || '');
   };
 
   return (
@@ -122,6 +128,16 @@ export default function AdminCategories() {
             className="flex-1 border rounded-md px-3 py-1.5 shadow-sm"
             autoFocus
           />
+          <select
+            value={newParentId}
+            onChange={e => setNewParentId(e.target.value)}
+            className="w-40 border rounded-md px-2 py-1.5 shadow-sm text-sm bg-white"
+          >
+            <option value="">No Parent</option>
+            {categories?.filter(c => !c.parent_id).map(c => (
+              <option key={c.id} value={c.id}>{c.name}</option>
+            ))}
+          </select>
           <button
             onClick={() => newName.trim() && addMutation.mutate()}
             disabled={addMutation.isPending}
@@ -130,7 +146,7 @@ export default function AdminCategories() {
             <Check className="w-5 h-5" />
           </button>
           <button
-            onClick={() => { setIsAdding(false); setNewName(''); setNewIcon(''); }}
+            onClick={() => { setIsAdding(false); setNewName(''); setNewIcon(''); setNewParentId(''); }}
             className="p-2 text-gray-400 hover:bg-gray-100 rounded-md transition"
           >
             <X className="w-5 h-5" />
@@ -172,6 +188,16 @@ export default function AdminCategories() {
                         placeholder="Category Name"
                         autoFocus
                       />
+                      <select
+                        value={editParentId}
+                        onChange={e => setEditParentId(e.target.value)}
+                        className="w-32 border rounded-md px-2 py-1 text-sm bg-gray-50"
+                      >
+                        <option value="">No Parent</option>
+                        {categories?.filter(c => !c.parent_id && c.id !== cat.id).map(c => (
+                          <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}
+                      </select>
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1 tracking-wider">URL Slug</label>
@@ -201,8 +227,11 @@ export default function AdminCategories() {
                   <>
                     <span className="text-lg w-8 text-center">{cat.icon || '📁'}</span>
                     <div className="flex-1 flex flex-col">
-                      <span className="font-bold text-gray-900 leading-tight">{cat.name}</span>
-                      <span className="text-[10px] font-mono text-gray-400 uppercase tracking-tighter mt-0.5">slug: {cat.slug || 'none'}</span>
+                      <span className="font-bold text-gray-900 leading-tight">
+                        {cat.parent_id ? <span className="text-gray-400 font-normal mr-2">↳</span> : null}
+                        {cat.name}
+                      </span>
+                      <span className="text-[10px] font-mono text-gray-400 uppercase tracking-tighter mt-0.5">slug: {cat.slug || 'none'} {cat.parent_id ? `| parent: ${categories?.find(c => c.id === cat.parent_id)?.name}` : ''}</span>
                     </div>
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button

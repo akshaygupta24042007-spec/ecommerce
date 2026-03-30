@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getProducts, getCategoryBySlug, getStoreSettings } from '../lib/api';
+import { getProducts, getCategoryBySlug, getStoreSettings, getCategories } from '../lib/api';
 import { ProductCard } from '../components/ProductCard';
 import { ChevronLeft, LayoutGrid } from 'lucide-react';
 import SEO from '../components/SEO';
@@ -23,6 +23,11 @@ export default function CategoryPage() {
     queryKey: ['products', 'category', slug],
     queryFn: () => getProducts(undefined, undefined, 1, 50, slug),
     enabled: !!slug,
+  });
+
+  const { data: allCategories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: getCategories,
   });
 
   if (isLoadingCategory || isLoadingProducts) {
@@ -70,9 +75,23 @@ export default function CategoryPage() {
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-4 capitalize">
             {category.name}
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl">
+          <p className="text-lg text-gray-600 max-w-2xl mb-6">
             Explore our curated selection of {category.name.toLowerCase()}. Each piece is handcrafted with care and attention to detail.
           </p>
+
+          {allCategories && category && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              {allCategories.filter(c => c.parent_id === category.id).map(sub => (
+                <Link
+                  key={sub.id}
+                  to={`/category/${sub.slug}`}
+                  className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-700 hover:border-gray-900 hover:text-gray-900 transition-colors shadow-sm"
+                >
+                  {sub.name}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
         {products.length === 0 ? (
