@@ -254,10 +254,10 @@ export default function AdminCategories() {
                       </span>
                       <span className="text-[10px] font-mono text-gray-400 uppercase tracking-tighter mt-0.5">slug: {cat.slug || 'none'} {cat.parent_id ? `| parent: ${categories?.find(c => c.id === cat.parent_id)?.name}` : ''}</span>
                     </div>
-                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-1 transition-opacity">
                       <button
                         onClick={() => startEdit(cat)}
-                        className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition shadow-sm bg-white border border-gray-100"
+                        className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition shadow-sm bg-white border border-gray-100"
                       >
                         <Pencil className="w-4 h-4" />
                       </button>
@@ -267,7 +267,7 @@ export default function AdminCategories() {
                             deleteMutation.mutate(cat.id);
                           }
                         }}
-                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition shadow-sm bg-white border border-gray-100"
+                        className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition shadow-sm bg-white border border-gray-100"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
