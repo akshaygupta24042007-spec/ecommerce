@@ -258,25 +258,32 @@ export default function Home() {
             <h2 id="blgm2d" className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-10 text-center tracking-tight">
               Our Collection
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-              {categories?.map((cat, index) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+              {[
+                { name: 'Kimonos', icon: '👘', slug: 'kimonos-collection' },
+                { name: 'Jackets', icon: '🧥', slug: 'jackets-collection' },
+                { name: 'Vests', icon: '🎽', slug: 'vests-collection' },
+                { name: 'Bags', icon: '👜', slug: 'bags-collection' },
+                { name: 'Cotton Suzani', icon: '🧵', slug: 'cotton-suzani-shorts' },
+                { name: 'Girls Dresses', icon: '👗', slug: 'girls-dresses' },
+                { name: 'Pajamas', icon: '🛌', slug: 'pajamas' },
+                { name: 'Quilt Sets', icon: '🛏️', slug: 'quilt-sets' },
+                { name: 'Skirts', icon: '👗', slug: 'skirts' },
+              ].map((item, index) => (
                 <Link
-                  key={cat.id}
-                  to={`/category/${cat.slug}`}
-                  className="block h-full"
+                  key={item.name}
+                  to={`/category/${item.slug}`}
+                  className="block"
                 >
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.05 }}
-                    className={`flex flex-col items-center justify-center p-6 rounded-2xl h-full ${cat.parent_id ? 'bg-white border-dashed border-gray-200' : 'bg-gray-50 border-solid border-gray-100'} border hover:bg-white hover:shadow-xl hover:-translate-y-1 hover:border-blue-200 transition-all group text-center`}
+                    className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:bg-white hover:shadow-lg hover:border-blue-100 transition-all group"
                   >
-                    <span className="text-4xl mb-3 group-hover:scale-110 transition-transform block">{cat.icon || (cat.parent_id ? '▫️' : '📁')}</span>
-                    <span className="font-bold text-gray-800 block leading-tight">{cat.name}</span>
-                    {cat.parent_id && (
-                      <span className="text-[10px] uppercase tracking-wider text-blue-600 font-bold mt-2 bg-blue-50 px-2 py-0.5 rounded-full">Subcategory</span>
-                    )}
+                    <span className="text-2xl group-hover:scale-110 transition-transform">{item.icon}</span>
+                    <span className="font-bold text-gray-700">{item.name}</span>
                   </motion.div>
                 </Link>
               ))}
@@ -329,20 +336,19 @@ export default function Home() {
           >
             All Products
           </button>
-          {categories.map(cat => (
+          {categories.filter(c => !c.parent_id).map(cat => (
             <div key={cat.id} className="flex gap-1 flex-shrink-0">
               <button
                 onClick={() => {
                   setSelectedCategory(cat.id);
                   setCurrentPage(1); // Reset to page 1 on category change
                 }}
-                className={`px-5 py-2.5 rounded-xl whitespace-nowrap text-sm font-semibold transition-all shadow-sm flex items-center ${
+                className={`px-5 py-2.5 rounded-xl whitespace-nowrap text-sm font-semibold transition-all shadow-sm ${
                   selectedCategory === cat.id 
                     ? 'bg-gray-900 text-white shadow-md scale-[1.02]' 
                     : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
-                {cat.parent_id && <span className="opacity-40 mr-1.5 font-normal">↳</span>}
                 {cat.icon && <span className="mr-2">{cat.icon}</span>}
                 {cat.name}
               </button>
