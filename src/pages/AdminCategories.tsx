@@ -33,10 +33,17 @@ export default function AdminCategories() {
   const addMutation = useMutation({
     mutationFn: async () => {
       const maxOrder = categories?.length ? Math.max(...categories.map(c => c.display_order || 0)) : 0;
-      const slug = newName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      let slug = newName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      
+      // Check for duplicate slug
+      const { data: existing } = await supabase.from('categories').select('id').eq('slug', slug).maybeSingle();
+      if (existing) {
+        slug = `${slug}-${Math.random().toString(36).substring(2, 6)}`;
+      }
+
       const { error } = await supabase.from('categories').insert({
         name: newName.trim(),
-        slug: slug, // This is already being generated above, but we ensure it's used
+        slug: slug,
         icon: newIcon.trim() || null,
         display_order: maxOrder + 1,
         parent_id: newParentId || null,
@@ -57,12 +64,20 @@ export default function AdminCategories() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id }: { id: string }) => {
+      let newSlug = editSlug.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      if (newSlug) {
+        const { data: existing } = await supabase.from('categories').select('id').eq('slug', newSlug).neq('id', id).maybeSingle();
+        if (existing) {
+          newSlug = `${newSlug}-${Math.random().toString(36).substring(2, 6)}`;
+        }
+      }
+
       const { error } = await supabase
         .from('categories')
         .update({ 
           name: editName.trim(), 
           icon: editIcon.trim() || null,
-          slug: editSlug.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || null,
+          slug: newSlug || null,
           parent_id: editParentId || null
         })
         .eq('id', id);
@@ -128,16 +143,19 @@ export default function AdminCategories() {
             className="flex-1 border rounded-md px-3 py-1.5 shadow-sm"
             autoFocus
           />
-          <select
-            value={newParentId}
-            onChange={e => setNewParentId(e.target.value)}
-            className="w-40 border rounded-md px-2 py-1.5 shadow-sm text-sm bg-white"
-          >
-            <option value="">No Parent</option>
-            {categories?.filter(c => !c.parent_id).map(c => (
-              <option key={c.id} value={c.id}>{c.name}</option>
-            ))}
-          </select>
+          <div className="flex flex-col relative group/select">
+            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider absolute -top-5 left-1">Parent Category</span>
+            <select
+              value={newParentId}
+              onChange={e => setNewParentId(e.target.value)}
+              className="w-48 border rounded-md px-2 py-1.5 shadow-sm text-sm bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+            >
+              <option value="">-- Make Top Level --</option>
+              {categories?.filter(c => !c.parent_id).map(c => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
+            </select>
+          </div>
           <button
             onClick={() => newName.trim() && addMutation.mutate()}
             disabled={addMutation.isPending}
@@ -188,16 +206,19 @@ export default function AdminCategories() {
                         placeholder="Category Name"
                         autoFocus
                       />
-                      <select
-                        value={editParentId}
-                        onChange={e => setEditParentId(e.target.value)}
-                        className="w-32 border rounded-md px-2 py-1 text-sm bg-gray-50"
-                      >
-                        <option value="">No Parent</option>
-                        {categories?.filter(c => !c.parent_id && c.id !== cat.id).map(c => (
-                          <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}
-                      </select>
+                      <div className="flex flex-col relative group/select">
+                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider absolute -top-4 left-1">Parent Category</span>
+                        <select
+                          value={editParentId}
+                          onChange={e => setEditParentId(e.target.value)}
+                          className="w-40 border rounded-md px-2 py-1 text-sm bg-gray-50 focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all outline-none"
+                        >
+                          <option value="">-- Make Top Level --</option>
+                          {categories?.filter(c => !c.parent_id && c.id !== cat.id).map(c => (
+                            <option key={c.id} value={c.id}>{c.name}</option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
                     <div>
                       <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1 ml-1 tracking-wider">URL Slug</label>

@@ -574,11 +574,6 @@
   </url>
   
   <url>
-    <loc>https://www.hiyawear.com/category/kimonos-collection</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.hiyawear.com/category/jackets-collection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -625,6 +620,11 @@
   </url>
   <url>
     <loc>https://www.hiyawear.com/category/pajamas</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.hiyawear.com/category/kimonos-collection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
