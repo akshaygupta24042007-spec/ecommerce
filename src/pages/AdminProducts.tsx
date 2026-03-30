@@ -415,26 +415,62 @@ export default function AdminProducts() {
               </div>
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">Categories</label>
-                <div className="flex flex-wrap gap-4 p-3 bg-gray-50 rounded-md border border-gray-200">
-                  {categories?.map(cat => (
-                    <label key={cat.id} className="flex items-center gap-2 cursor-pointer group">
-                      <input
-                        type="checkbox"
-                        checked={selectedCategories.includes(cat.id)}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setSelectedCategories([...selectedCategories, cat.id]);
-                          } else {
-                            setSelectedCategories(selectedCategories.filter(id => id !== cat.id));
-                          }
-                        }}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
-                      />
-                      <span className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
-                        {cat.parent_id ? `${categories?.find(c => c.id === cat.parent_id)?.name} > ` : ''}{cat.name}
-                      </span>
-                    </label>
-                  ))}
+                <div className="p-4 bg-gray-50 rounded-md border border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {categories?.filter(c => !c.parent_id).map(parent => {
+                    const children = categories.filter(c => c.parent_id === parent.id);
+                    return (
+                      <div key={parent.id} className="space-y-2">
+                        {/* Parent Checkbox */}
+                        <label className="flex items-center gap-2 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            checked={selectedCategories.includes(parent.id)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                // Checking parent just checks parent
+                                setSelectedCategories(prev => Array.from(new Set([...prev, parent.id])));
+                              } else {
+                                // Unchecking parent unchecks parent AND all its children
+                                const toRemove = new Set([parent.id, ...children.map(c => c.id)]);
+                                setSelectedCategories(prev => prev.filter(id => !toRemove.has(id)));
+                              }
+                            }}
+                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
+                          />
+                          <span className="text-sm font-semibold text-gray-900 group-hover:text-black transition-colors">
+                            {parent.name}
+                          </span>
+                        </label>
+                        
+                        {/* Children Checkboxes */}
+                        {children.length > 0 && (
+                          <div className="ml-6 space-y-2 border-l-2 border-gray-200 pl-3">
+                            {children.map(child => (
+                              <label key={child.id} className="flex items-center gap-2 cursor-pointer group">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedCategories.includes(child.id)}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      // Checking child checks child AND its parent
+                                      setSelectedCategories(prev => Array.from(new Set([...prev, child.id, parent.id])));
+                                    } else {
+                                      // Unchecking child just unchecks child
+                                      setSelectedCategories(prev => prev.filter(id => id !== child.id));
+                                    }
+                                  }}
+                                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
+                                />
+                                <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
+                                  {child.name}
+                                </span>
+                              </label>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
