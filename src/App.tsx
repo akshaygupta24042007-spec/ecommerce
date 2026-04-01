@@ -10,6 +10,7 @@ import { useCartStore } from './lib/store';
 import { Cart } from './components/Cart';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { BottomNav } from './components/BottomNav';
+import { WhatsappVideoCall } from './components/WhatsappVideoCall';
 import toast from 'react-hot-toast';
 import { OrderModal } from './components/OrderModal';
 import { createWhatsAppLink } from './utils/orderLinks';
@@ -249,6 +250,7 @@ const PublicLayout = () => {
       <OrderModal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)} />
       <BottomNav />
       <Cart />
+      <WhatsappVideoCall />
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-300 pb-24 lg:pb-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
