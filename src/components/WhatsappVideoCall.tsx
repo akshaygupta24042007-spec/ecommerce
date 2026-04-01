@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getStoreSettings } from '../lib/api';
 import { Video, X } from 'lucide-react';
 import { createWhatsAppLink } from '../utils/orderLinks';
+import { motion } from 'framer-motion';
 
 const REASONS = [
   "Want to check product quality before buying",
@@ -37,13 +38,16 @@ export function WhatsappVideoCall() {
 
   return (
     <>
-      <button
+      <motion.button
+        drag
+        dragMomentum={false}
+        whileDrag={{ scale: 1.1, cursor: 'grabbing' }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 lg:bottom-8 right-4 lg:right-8 w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full shadow-[0_4px_14px_rgba(37,211,102,0.4)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] flex items-center justify-center transition-all duration-300 z-40 group"
+        className="fixed bottom-24 lg:bottom-8 right-4 lg:right-8 w-14 h-14 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full shadow-[0_4px_14px_rgba(37,211,102,0.4)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] flex items-center justify-center transition-colors duration-300 z-40 group cursor-grab"
         aria-label="Request Video Call"
       >
-        <Video className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
-      </button>
+        <Video className="w-6 h-6 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
+      </motion.button>
 
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 transition-opacity">
