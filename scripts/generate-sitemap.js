@@ -56,6 +56,18 @@ async function generateSitemap() {
 
   console.log(`Found ${categories?.length || 0} categories.`);
 
+  console.log('Fetching behind the scenes from Supabase...');
+  const { data: bts, error: btsError } = await supabase
+    .from('behind_the_scenes')
+    .select('id, created_at');
+
+  if (btsError) {
+    console.error('Error fetching behind the scenes:', btsError);
+    process.exit(1);
+  }
+
+  console.log(`Found ${bts?.length || 0} behind the scenes items.`);
+
   const staticPages = [
     { url: '/', changefreq: 'daily', priority: '1.0' },
     { url: '/search', changefreq: 'daily', priority: '0.8' },
@@ -93,6 +105,13 @@ async function generateSitemap() {
     <loc>${SITE_URL}/category/${cat.slug}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>`).join('')}
+  ${(bts || []).map(item => `
+  <url>
+    <loc>${SITE_URL}/behind-the-scenes/${item.id}</loc>
+    <lastmod>${new Date(item.created_at).toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>`).join('')}
 </urlset>`;
 

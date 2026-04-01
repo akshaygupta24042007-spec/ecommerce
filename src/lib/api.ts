@@ -198,3 +198,14 @@ export async function getBehindTheScenes(): Promise<BehindTheScene[]> {
   if (error) throw error;
   return data as BehindTheScene[];
 }
+
+export async function getBehindTheScene(id: string): Promise<BehindTheScene> {
+  const { data, error } = await supabase
+    .from('behind_the_scenes')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) throw error;
+  return data as BehindTheScene;
+}

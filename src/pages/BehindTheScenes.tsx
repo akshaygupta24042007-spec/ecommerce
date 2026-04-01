@@ -3,6 +3,7 @@ import { getBehindTheScenes } from '../lib/api';
 import { Video } from 'lucide-react';
 import type { BehindTheScene } from '../lib/types';
 import SEO from '../components/SEO';
+import { Link } from 'react-router-dom';
 
 export default function BehindTheScenes() {
   const { data: media, isLoading } = useQuery<BehindTheScene[]>({
@@ -43,7 +44,7 @@ export default function BehindTheScenes() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {media.map((item) => (
-            <div key={item.id} className="group bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 border border-gray-100">
+            <Link to={`/behind-the-scenes/${item.id}`} key={item.id} className="group bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 border border-gray-100 block relative">
               {item.type === 'image' ? (
                 <div className="aspect-[4/5] relative bg-gray-100 overflow-hidden">
                   <img 
@@ -59,15 +60,25 @@ export default function BehindTheScenes() {
                   </div>
                 </div>
               ) : (
-                <div className="bg-black">
+                <div className="aspect-[4/5] relative bg-black overflow-hidden flex items-center justify-center">
                   <video 
                     src={item.url}
-                    className="w-full"
-                    controls
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
                     playsInline
+                    muted
+                    loop
                     preload="metadata"
-                    style={{ maxHeight: '500px' }}
                   />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="bg-white/20 backdrop-blur-md p-4 rounded-full text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Video className="w-8 h-8" />
+                    </div>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    {item.caption && (
+                      <p className="text-white text-sm line-clamp-2">{item.caption}</p>
+                    )}
+                  </div>
                 </div>
               )}
               {item.caption && (
@@ -75,7 +86,7 @@ export default function BehindTheScenes() {
                   <p className="text-gray-700 text-sm line-clamp-2 font-medium leading-relaxed">{item.caption}</p>
                 </div>
               )}
-            </div>
+            </Link>
           ))}
         </div>
       )}

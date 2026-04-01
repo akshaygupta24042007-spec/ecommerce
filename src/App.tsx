@@ -31,6 +31,7 @@ import AdminBlogs from './pages/AdminBlogs';
 import BlogList from './pages/BlogList';
 import BlogDetail from './pages/BlogDetail';
 import BehindTheScenes from './pages/BehindTheScenes';
+import BehindTheScenesDetail from './pages/BehindTheScenesDetail';
 import AdminBehindTheScenes from './pages/AdminBehindTheScenes';
 import CategoryPage from './pages/CategoryPage';
 import { productLoader } from './pages/ProductDetail';
@@ -437,6 +438,15 @@ export const routes: RouteRecord[] = [
       {
         path: 'behind-the-scenes',
         Component: BehindTheScenes,
+      },
+      {
+        path: 'behind-the-scenes/:id',
+        Component: BehindTheScenesDetail,
+        getStaticPaths: async () => {
+          const ids = await getSupabaseSlugs('behind_the_scenes', 'id');
+          // Filter out missing/null ids if any, just in case
+          return ids.filter(Boolean).map((id: string) => `behind-the-scenes/${id}`);
+        },
       },
       {
         path: 'contact',
