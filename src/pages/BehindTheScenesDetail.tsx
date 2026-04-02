@@ -42,6 +42,13 @@ export default function BehindTheScenesDetail() {
         description={description}
         path={`/behind-the-scenes/${item.id}`}
         image={item.type === 'image' ? item.url : undefined}
+        video={item.type === 'video' ? {
+          name: title,
+          description: description,
+          thumbnailUrl: 'https://www.hiyawear.com/logo.png',
+          uploadDate: item.created_at,
+          contentUrl: item.url,
+        } : undefined}
       />
       
       <div className="mb-8">

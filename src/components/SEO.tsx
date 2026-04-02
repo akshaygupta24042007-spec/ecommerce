@@ -21,6 +21,14 @@ interface ArticleSchemaData {
   url: string;
 }
 
+export interface VideoSchemaData {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate: string;
+  contentUrl: string;
+}
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -29,6 +37,7 @@ interface SEOProps {
   image?: string;
   product?: ProductSchemaData;
   article?: ArticleSchemaData;
+  video?: VideoSchemaData;
   breadcrumbs?: BreadcrumbItem[];
 }
 
@@ -40,6 +49,7 @@ const SEO = ({
   image,
   product,
   article,
+  video,
   breadcrumbs
 }: SEOProps) => {
   const siteUrl = 'https://www.hiyawear.com';
@@ -111,6 +121,17 @@ const SEO = ({
     }
   } : null;
 
+  // Video schema
+  const videoSchema = video ? {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: video.name,
+    description: video.description,
+    thumbnailUrl: video.thumbnailUrl || defaultImage,
+    uploadDate: video.uploadDate,
+    contentUrl: video.contentUrl
+  } : null;
+
   // Breadcrumb schema
   const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
     '@context': 'https://schema.org',
@@ -164,6 +185,11 @@ const SEO = ({
       {articleSchema && (
         <script type="application/ld+json">
           {JSON.stringify(articleSchema)}
+        </script>
+      )}
+      {videoSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(videoSchema)}
         </script>
       )}
       {breadcrumbSchema && (
