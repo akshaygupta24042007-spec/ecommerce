@@ -220,6 +220,10 @@ const PublicLayout = () => {
                 <Video className="w-5 h-5 text-gray-400" />
                 Behind the Scenes
               </Link>
+              <Link to="/verified-buyer-chats" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-3 py-3 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100">
+                <MessageCircle className="w-5 h-5 text-gray-400" />
+                Verified Buyer Chats
+              </Link>
               <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 px-3 py-3 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100">
                 <Info className="w-5 h-5 text-gray-400" />
                 About
