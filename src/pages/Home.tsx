@@ -600,33 +600,39 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100 shadow-sm hover:shadow-xl transition-all duration-500"
                 >
-                  {item.type === 'image' ? (
-                    <img 
-                      src={item.url} 
-                      alt={item.caption || 'Behind the scenes'} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <video 
-                      src={item.url} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      muted
-                      playsInline
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    {item.caption && (
-                      <p className="text-white text-xs sm:text-sm line-clamp-2 font-medium">{item.caption}</p>
+                  <Link
+                    to={`/behind-the-scenes/${item.id}`}
+                    className="block group relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100 shadow-sm hover:shadow-xl transition-all duration-500"
+                  >
+                    {item.type === 'image' ? (
+                      <img 
+                        src={item.url} 
+                        alt={item.caption || 'Behind the scenes'} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <video 
+                        src={item.url} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        muted
+                        playsInline
+                        autoPlay
+                        loop
+                      />
                     )}
-                  </div>
-                  {item.type === 'video' && (
-                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                      <Video className="w-4 h-4 text-white" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      {item.caption && (
+                        <p className="text-white text-xs sm:text-sm line-clamp-2 font-medium">{item.caption}</p>
+                      )}
                     </div>
-                  )}
+                    {item.type === 'video' && (
+                      <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                        <Video className="w-4 h-4 text-white" />
+                      </div>
+                    )}
+                  </Link>
                 </motion.div>
               ))}
             </div>
