@@ -61,6 +61,14 @@ export interface BehindTheScene {
   created_at: string;
 }
 
+export interface VerifiedBuyerChat {
+  id: string;
+  url: string;
+  caption: string | null;
+  display_order: number;
+  created_at: string;
+}
+
 export interface Product {
   id: string;
   name: string;

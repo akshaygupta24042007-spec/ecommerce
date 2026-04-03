@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import type { StoreSettings, Product, Category, Blog, BehindTheScene } from './types';
+import type { StoreSettings, Product, Category, Blog, BehindTheScene, VerifiedBuyerChat } from './types';
 
 export async function getBlogs(): Promise<Blog[]> {
   const { data, error } = await supabase
@@ -208,4 +208,70 @@ export async function getBehindTheScene(id: string): Promise<BehindTheScene> {
 
   if (error) throw error;
   return data as BehindTheScene;
+}
+
+export async function getVerifiedBuyerChats(): Promise<VerifiedBuyerChat[]> {
+  const { data, error } = await supabase
+    .from('verified_buyer_chats')
+    .select('*')
+    .order('display_order', { ascending: true })
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data as VerifiedBuyerChat[];
+}
+
+export async function uploadVerifiedBuyerChat(file: File, caption?: string): Promise<VerifiedBuyerChat> {
+  const fileExt = file.name.split('.').pop();
+  const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
+  const filePath = `verified-chats/${fileName}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from('store-assets')
+    .upload(filePath, file);
+
+  if (uploadError) throw uploadError;
+
+  const { data: { publicUrl } } = supabase.storage
+    .from('store-assets')
+    .getPublicUrl(filePath);
+
+  const { data, error } = await supabase
+    .from('verified_buyer_chats')
+    .insert([{
+      url: publicUrl,
+      caption: caption || null,
+      display_order: 0
+    }])
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data as VerifiedBuyerChat;
+}
+
+export async function deleteVerifiedBuyerChat(id: string, url: string): Promise<void> {
+  // Extract path from public URL
+  const path = url.split('/storage/v1/object/public/store-assets/')[1];
+  
+  if (path) {
+    await supabase.storage
+      .from('store-assets')
+      .remove([path]);
+  }
+
+  const { error } = await supabase
+    .from('verified_buyer_chats')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+}
+
+export async function updateVerifiedBuyerChatOrder(chats: { id: string, display_order: number }[]): Promise<void> {
+  const { error } = await supabase
+    .from('verified_buyer_chats')
+    .upsert(chats);
+
+  if (error) throw error;
 }

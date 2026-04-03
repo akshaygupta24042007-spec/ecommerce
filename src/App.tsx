@@ -34,6 +34,8 @@ import BlogDetail from './pages/BlogDetail';
 import BehindTheScenes from './pages/BehindTheScenes';
 import BehindTheScenesDetail from './pages/BehindTheScenesDetail';
 import AdminBehindTheScenes from './pages/AdminBehindTheScenes';
+import VerifiedBuyerChats from './pages/VerifiedBuyerChats';
+import AdminVerifiedChats from './pages/AdminVerifiedChats';
 import CategoryPage from './pages/CategoryPage';
 import { productLoader } from './pages/ProductDetail';
 
@@ -59,6 +61,10 @@ const AdminLayout = () => {
           <Link to="/admin/behind-the-scenes" className="px-3 py-2 hover:bg-gray-100 rounded text-gray-700 font-medium flex items-center gap-2">
             <Video className="w-4 h-4" />
             Behind the Scenes
+          </Link>
+          <Link to="/admin/verified-chats" className="px-3 py-2 hover:bg-gray-100 rounded text-gray-700 font-medium flex items-center gap-2">
+            <MessageCircle className="w-4 h-4" />
+            Verified Chats
           </Link>
           <Link to="/admin/settings" className="px-3 py-2 hover:bg-gray-100 rounded text-gray-700 font-medium">Settings</Link>
         </nav>
@@ -263,6 +269,7 @@ const PublicLayout = () => {
                 <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
                 <li><Link to="/search" className="hover:text-white transition-colors">Shop</Link></li>
                 <li><Link to="/behind-the-scenes" className="hover:text-white transition-colors">Behind the Scenes</Link></li>
+                <li><Link to="/verified-buyer-chats" className="hover:text-white transition-colors">Verified Buyer Chats</Link></li>
                 <li><Link to="/blogs" className="hover:text-white transition-colors">Blog</Link></li>
                 <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
                 <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
@@ -442,6 +449,10 @@ export const routes: RouteRecord[] = [
         Component: BehindTheScenes,
       },
       {
+        path: 'verified-buyer-chats',
+        Component: VerifiedBuyerChats,
+      },
+      {
         path: 'behind-the-scenes/:id',
         Component: BehindTheScenesDetail,
         getStaticPaths: async () => {
@@ -501,6 +512,10 @@ export const routes: RouteRecord[] = [
       {
         path: 'behind-the-scenes',
         Component: AdminBehindTheScenes,
+      },
+      {
+        path: 'verified-chats',
+        Component: AdminVerifiedChats,
       },
     ],
   },
